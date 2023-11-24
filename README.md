@@ -1,5 +1,5 @@
-# E-MUNAKAHAT
-ONLINE MARRIAGE MANAGEMENT SYSTEM FOR PAHANG STATE GOVERNMENT
+# FK-KIOSK MANAGEMENT SYSTEM
+ONLINE KIOSK MANAGEMENT SYSTEM FOR FACULTY OF COMPUTING 
 
 
 ## Install
@@ -48,12 +48,12 @@ Deploy with npm
 Developed and Deployed using Visual Studio Code, Laragon, Heidi SQL, Github.
 
 
-## Authors
+## Programmer's
 - [@Amir](https://github.com/amir1611)
-- [@Chua](https://github.com/chua01)
-- [@Sufian](https://github.com/pianburp)
-- [@Alia](https://github.com/NikAlia910)
-- [@Sharmaine](https://github.com/Shammene)
+- [@Satiya](https://github.com/satiyaganes06)
+- [@Sofhia](https://github.com/SofhiaziziCool)
+- [@Iman](https://github.com/chiciko10)
+
 
 ## Documentation
  - [Laravel](https://laravel.com/docs/10.x)
