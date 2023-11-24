@@ -1,5 +1,6 @@
+![FK-KIOSK MANAGEMENT SYSTEM](https://lh3.googleusercontent.com/u/0/drive-viewer/AK7aPaD2SoAVS6jLEdKNDbW7IyH9iCu5d4P0A4oVg4gqeu04ul4XGycxMm2Cbcp2xTb6j-KpeQJawyJL7LzbDefIxRy-rWFi9A=w1920-h911)
 # FK-KIOSK MANAGEMENT SYSTEM
-ONLINE KIOSK MANAGEMENT SYSTEM FOR FACULTY OF COMPUTING 
+ONLINE KIOSK MANAGEMENT SYSTEM FOR FACULTY OF COMPUTING, UMPSA
 
 
 ## Install
@@ -35,8 +36,8 @@ To publish this project
 Deploy with npm
 ```bash
   1. npm install 
-  2. php artisan serve
-  3. npm run dev
+  2. npm run dev
+  3. php artisan serve
 ```
     
 ## Download
