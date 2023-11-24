@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header" style="padding-top: -70px;">
-                        <img src="assets/banner.png" style="margin-left: 76px;" draggable="false" alt="">
+                        <img src="assets/banner.png" style="margin-left: 110px;width: 807px;height: 175px;" draggable="false" alt="">
                     </div>
                     <div class="card-body">
 
@@ -33,7 +33,7 @@
                                         class="form-control @error('ic') is-invalid @enderror" name="ic"
                                         value="{{ old('ic') }}" required autocomplete="ic" autofocus>
 
-                                        
+
                                     @error('ic')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

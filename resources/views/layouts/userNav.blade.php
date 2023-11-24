@@ -46,14 +46,14 @@
         </li>
 
         <!-- Nav Item - Profile -->
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link"
                 style="padding-right: 5px;"
                 href="{{route('user.prepCourse.manage')}}">
                 <i class="fas fa-fw fa-book"></i>
                 <span>{{ __('Marriage Preparation Course') }}</span>
             </a>
-        </li>
+        </li> --}}
 
         {{-- <li class="nav-item">
             <a class="nav-link" href="{{route('user.prepCourse.payment')}}">
@@ -62,12 +62,12 @@
             </a>
         </li> --}}
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="user.application.manageMarReq">
                 <i class="fas fa-fw fa-cloud"></i>
                 <span>{{ __('Marriage Application') }}</span>
             </a>
-        </li>
+        </li> --}}
 {{--
         <li class="nav-item">
             <a class="nav-link" href="{{route('user.application.document')}}">
@@ -77,7 +77,7 @@
         </li> --}}
 
         <!-- Nav Item - Profile -->
-        <li class="nav-item ">
+        {{-- <li class="nav-item ">
             <a class="nav-link" href="{{route('user.register.spouseList')}}">
                 <i class="fas fa-fw fa-magic"></i>
                 <span>{{ __('Marriage Registration') }}</span>
@@ -89,7 +89,7 @@
                 <i class="fa-solid fa-address-card"></i>
                 <span>{{ __('Marriage Card') }}</span>
             </a>
-        </li>
+        </li> --}}
 
         {{-- <!-- Nav Item - About -->
         <li class="nav-item">
@@ -99,26 +99,26 @@
             </a>
         </li> --}}
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="{{route('user.consultation.manage')}}">
                 <i class="fas fa-fw fa-hands-helping"></i>
                 <span>{{ __('Consultation') }}</span>
             </a>
-        </li>
+        </li> --}}
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="{{route('user.incentive.apply')}}">
                 <i class="fas fa-fw  fa-credit-card-alt"></i>
                 <span>{{ __('Incentives') }}</span>
             </a>
-        </li>
+        </li> --}}
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="#">
                 <i class="fas fa-fw fa-pencil-square"></i>
                 <span>{{ __('Document Correction') }}</span>
             </a>
-        </li>
+        </li> --}}
 
 
         <li class="nav-item">

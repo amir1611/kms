@@ -48,7 +48,7 @@
         </li>
 
         <!-- Nav Item - Profile -->
-        <li class="nav-item ">
+        {{-- <li class="nav-item ">
             <a class="nav-link" href="{{route('staff.prepCourse.applicantList')}}">
                 <i class="fas fa-fw fa-list"></i>
                 <span>{{ __('List of Applicant') }}</span>
@@ -84,7 +84,7 @@
             <a class="nav-link" href="{{route('staff.incentive.view')}}">
                 <i class="fas fa-fw fa-credit-card"></i>
                 <span>{{ __('Incentive') }}</span></a>
-        </li>
+        </li> --}}
 
         <!-- Nav Item - About -->
         {{-- <li class="nav-item">
