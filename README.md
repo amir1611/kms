@@ -36,8 +36,8 @@ To publish this project
 Deploy with npm
 ```bash
   1. npm install 
-  2. php artisan serve
-  3. npm run dev
+  2. npm run dev
+  3. php artisan serve
 ```
     
 ## Download
