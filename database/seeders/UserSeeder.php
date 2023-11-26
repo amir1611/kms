@@ -14,8 +14,10 @@ class UserSeeder extends Seeder
 	public function run(): void
 	{
 		$users = [
+
+			//admin
 			[
-				'ic' => '485967363937',
+				'ic' => '485967343937',
 				'name' => 'admin',
 				'gender' => 'male',
 				'staff_id' => 'stf321',
@@ -26,6 +28,7 @@ class UserSeeder extends Seeder
 				'password' => bcrypt('1234'),
 			],
 
+			//Pupuk admin
             [
 				'ic' => '111122223333',
 				'name' => 'amir',
@@ -38,19 +41,33 @@ class UserSeeder extends Seeder
 				'password' => bcrypt('1234'),
 			],
 
-
+			//FK Techincal
             [
 				'ic' => '022134321987',
 				'name' => 'ali',
 				'gender' => 'male',
-				'staff_id' => 'usr2123',
-				'email' => 'user@gmail.com',
-				'contact' => '0387988765',
+				'staff_id' => 'tech2123',
+				'email' => 'tech@gmail.com',
+				'contact' => '03879088762',
                 'email_verified_at' => '2023-06-09 06:16:17',
-				'role' => 0,
+				'role' => 3,
 				'password' => bcrypt('1234'),
 			],
 
+			//Fk Bursary 
+            [
+				'ic' => '022134321222',
+				'name' => 'Siti',
+				'gender' => 'Female',
+				'staff_id' => 'bursary2123',
+				'email' => 'bursary@gmail.com',
+				'contact' => '038733988765',
+                'email_verified_at' => '2023-06-09 06:16:17',
+				'role' => 4,
+				'password' => bcrypt('1234'),
+			],
+			
+			//Kiosk Participant
             [
 				'ic' => '111222333444',
 				'name' => 'chua',
@@ -60,7 +77,7 @@ class UserSeeder extends Seeder
 				'contact' => '0387988765',
                 'email_verified_at' => '2023-06-09 06:16:17',
 				'role' => 0,
-				'password' => bcrypt('password'),
+				'password' => bcrypt('1234'),
 			],
 
 		];
