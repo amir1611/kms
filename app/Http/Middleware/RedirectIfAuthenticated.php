@@ -23,10 +23,14 @@ class RedirectIfAuthenticated
 			if (Auth::guard($guard)->check()) {
 				if (Auth::user()->role == 'admin') {
 					return redirect(RouteServiceProvider::ADMIN);
-				} elseif (Auth::user()->role == 'staff') {
-					return redirect(RouteServiceProvider::STAFF);
+				} elseif (Auth::user()->role == 'pupuk-admin') {
+					return redirect(RouteServiceProvider::PUPUKADMIN);
 				} elseif (Auth::user()->role == 'user') {
 					return redirect(RouteServiceProvider::USER);
+				}elseif (Auth::user()->role == 'fk-technical') {
+					return redirect(RouteServiceProvider::FKTECHNICAL);
+				}elseif (Auth::user()->role == 'fk-bursary') {
+					return redirect(RouteServiceProvider::FKBURSARY);
 				}
 			}
 		}

@@ -25,16 +25,16 @@ Auth::routes();
 
 Auth::routes(['verify' => true]);
 
-Route::prefix('staff')->name('staff.')->group(function () {
-    Route::group(['middleware' => ['auth', 'verified', 'user-role:staff']], function () {
+Route::prefix('pupuk-admin')->name('pupuk.')->group(function () {
+    Route::group(['middleware' => ['auth', 'verified', 'user-role:pupuk-admin']], function () {
         Route::put('/{id}/update', [UserController::class, 'update'])->name('update');
-        Route::get('/profile', [HomeController::class, 'indexStaff'])->name('home');
+        Route::get('/profile', [HomeController::class, 'indexPupukAdmin'])->name('home');
         Route::post('/profile', [HomeController::class, 'updatePassword'])->name('update-password-staff');
     });
 });
 
-Route::group(['middleware' => ['auth', 'verified', 'user-role:staff']], function () {
-    Route::get('/', [HomeController::class, 'indexStaff'])->name('home');
+Route::group(['middleware' => ['auth', 'verified', 'user-role:pupuk-admin']], function () {
+    Route::get('/', [HomeController::class, 'indexPupukAdmin'])->name('home');
 });
 
 
@@ -54,6 +54,26 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::group(['middleware' => ['auth', 'verified', 'user-role:admin']], function () {
         Route::get('/', [HomeController::class, 'indexAdmin'])->name('home');
+        Route::get('/register-staff', [UserController::class, 'registerStaff'])->name('register-staff');
+        Route::post('/store-staff', [UserController::class, 'storeStaff'])->name('store-staff');
+    });
+});
+
+
+
+Route::prefix('fk-technical')->name('technical.')->group(function () {
+
+    Route::group(['middleware' => ['auth', 'verified', 'user-role:fk-technical']], function () {
+        Route::get('/', [HomeController::class, 'indexFKTechnical'])->name('home');
+        Route::get('/register-staff', [UserController::class, 'registerStaff'])->name('register-staff');
+        Route::post('/store-staff', [UserController::class, 'storeStaff'])->name('store-staff');
+    });
+});
+
+Route::prefix('fk-bursary')->name('bursary.')->group(function () {
+
+    Route::group(['middleware' => ['auth', 'verified', 'user-role:fk-bursary']], function () {
+        Route::get('/', [HomeController::class, 'indexFKBursary'])->name('home');
         Route::get('/register-staff', [UserController::class, 'registerStaff'])->name('register-staff');
         Route::post('/store-staff', [UserController::class, 'storeStaff'])->name('store-staff');
     });

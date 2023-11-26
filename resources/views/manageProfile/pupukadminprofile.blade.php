@@ -1,4 +1,4 @@
-@extends('layouts.staffNav')
+@extends('layouts.pupukAdminNav')
 
 @section('main-content')
     <!--USER PROFILE -->
@@ -6,7 +6,7 @@
 
 
         <!-- Route to staff.update based on the staff id to update the staff profile-->
-        <form action="{{ route('staff.update', [auth()->id()]) }}" method="post">
+        <form action="{{ route('pupuk.update', [auth()->id()]) }}" method="post">
 
             <!-- Override form method to PUT -->
             @method('PUT')
@@ -88,7 +88,7 @@
         style="background-color: white;border-radius: 30px;margin-top: -1px;margin-bottom: 20px;margin-left: 100px;margin-right: 100px;">
 
         <!-- Route to staff.update-password-staff based on the staff id to update the staff password-->
-        <form action="{{ route('staff.update-password-staff') }}" method="POST">
+        <form action="{{ route('pupuk.update-password-staff') }}" method="POST">
 
             <!-- Cross Site Request Forgery Protection -->
             @csrf

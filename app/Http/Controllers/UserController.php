@@ -96,7 +96,7 @@ class UserController extends Controller
         // Validate the request
         $request->merge([
             'password' => Hash::make('1234'),
-            'role' => 1,
+            'role' => 3,
             'staff_id' => 'stf' . rand(100, 999),
         ]);
 

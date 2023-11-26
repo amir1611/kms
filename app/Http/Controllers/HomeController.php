@@ -28,14 +28,24 @@ class HomeController extends Controller
         return view('manageProfile.userprofile');
     }
 
-    public function indexStaff()
+    public function indexPupukAdmin()
     {
-        return view('manageProfile.staffprofile');
+        return view('manageProfile.pupukadminprofile');
     }
 
     public function indexAdmin()
     {
         return view('manageProfile.adminprofile');
+    }
+
+    public function indexFKTechnical()
+    {
+        return view('manageProfile.fkTechnicalprofile');
+    }
+
+    public function indexFKBursary()
+    {
+        return view('manageProfile.fkbursaryprofile');
     }
 
 

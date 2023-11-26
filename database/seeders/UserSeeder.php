@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
 
 			//admin
 			[
-				'ic' => '485967343937',
+				'ic' => '124397489324',
 				'name' => 'admin',
 				'gender' => 'male',
 				'staff_id' => 'stf321',
@@ -81,7 +81,7 @@ class UserSeeder extends Seeder
 			],
 
 		];
-		//ss
+		
 
 		foreach ($users as $key => $user) {
 			User::create($user);
