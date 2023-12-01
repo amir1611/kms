@@ -13,7 +13,7 @@
 
             <!-- Cross Site Request Forgery Protection -->
             @csrf
-
+            
 
             <div class="row mt-4 profile-header">
                 <h4 class="font-weight-bold mx-auto mt-2 profile-title">User Profile</h4>

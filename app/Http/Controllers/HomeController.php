@@ -28,6 +28,17 @@ class HomeController extends Controller
         return view('manageProfile.userprofile');
     }
 
+    public function monthlyReportList()
+    {
+        return view('manageReport.viewReportList');
+    }
+
+    public function uploadMonthlyReport()
+    {
+        return view('manageReport.uploadReportList');
+    }
+
+
     public function indexPupukAdmin()
     {
         return view('manageProfile.pupukadminprofile');
