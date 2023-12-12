@@ -30,12 +30,12 @@ class HomeController extends Controller
 
     public function monthlyReportList()
     {
-        return view('manageReport.viewReportList');
+        return view('manageReport.viewMonthlyReportList');
     }
 
     public function uploadMonthlyReport()
     {
-        return view('manageReport.uploadReportList');
+        return view('manageReport.uploadMonthlyReport');
     }
 
 
