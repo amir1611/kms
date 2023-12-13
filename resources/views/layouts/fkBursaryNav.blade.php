@@ -32,7 +32,7 @@
             <div class="sidebar-brand-icon rotate-n-0">
                 <i class="fas fa-house"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">E-MUNAKAHAT</div>
+            <div class="sidebar-brand-text mx-3">FK-KIOSK</div>
         </a>
 
         <!-- Divider -->

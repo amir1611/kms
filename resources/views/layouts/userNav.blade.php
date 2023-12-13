@@ -38,7 +38,7 @@
                 <div class="sidebar-brand-icon rotate-n-0">
                     <i class="fas fa-house"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3 text-start">Kiosk Management System</div>
+                <div class="sidebar-brand-text mx-3 text-start">FK-KIOSK</div>
             </a>
 
             <!-- Divider -->
