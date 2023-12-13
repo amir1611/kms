@@ -28,6 +28,11 @@
 
 
 @section('main-content')
+
+@php
+use Illuminate\Support\Str;
+@endphp
+
 <div class="container2" style="background-color: white;border-radius: 30px;margin-left: 100px;margin-right: 100px;">
 
     <div class="row mt-4 profile-header">
@@ -74,6 +79,7 @@
     <table class="table align-middle mb-0 bg-white">
         <thead class="">
             <tr>
+                <th>Kiosk ID</th>
                 <th>Month</th>
                 <th>Sale Revenue (RM)</th>
                 <th>Report</th>
@@ -83,117 +89,55 @@
             </tr>
         </thead>
         <tbody>
+
+            @foreach($reports as $report)
             <tr>
                 <td>
                     <div class="d-flex align-items-center">
-
                         <div class="ms-3">
-                            <p class="fw-bold mb-1">May</p>
+                            <p class="fw-bold mb-1">{{ $report->kiosk_id }}</p>
                         </div>
                     </div>
                 </td>
                 <td>
-                    <p class="fw-normal mb-1">300</p>
-                </td>
-                <td>
-                    <a href="#">may_slip.pdf</a>
-                </td>
-                <td class="w-25">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse eos illum voluptatum, neque repellendus dignissimos id rem cumque dolore. Cumque autem eum qui corporis deleniti veritatis doloremque blanditiis quidem adipisci.</td>
-                <td>
-                    <p class="text-success">Reviewed</p>
-                </td>
-                <td >
-                    <div class="d-flex justify-content-between">
-                        <a href="#"><i class="fas fa-eye text-dark"></i></a>
-                        <a href="#"><i class="fas fa-pen-to-square text-dark"></i></a>
-                        <a href="#"><i class="far fa-circle-xmark text-dark"></i></a>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
                     <div class="d-flex align-items-center">
-
-                        <div class="ms-3">
-                            <p class="fw-bold mb-1">May</p>
-                        </div>
+                        <p class="fw-normal mb-1">{{ $report->report_month->format('M') }}</p>
                     </div>
                 </td>
                 <td>
-                    <p class="fw-normal mb-1">300</p>
+                    <p class="fw-normal mb-1">{{ $report->report_monthly_revenue }}</p>
                 </td>
                 <td>
-                    <a href="#">may_slip.pdf</a>
+
+                    <a href="{{ asset('storage/' . $report->report_pdf) }}" target="_blank">
+                        <p>{{ Str::limit($report->report_pdf, $limit = 20, $end = '...') }}</p>
+                    </a>
+
                 </td>
-                <td class="w-25">Lorem ipsum dolor sit amet consectetur adipisicing.</td>
+                <td class="w-25">{{ $report->report_remark }}</td>
                 <td>
-                    <p class="text-success">Reviewed</p>
+                    @if($report->report_status == "Approve")
+                    <p class="text-success">{{ $report->report_status }}</p>
+
+                    @elseif ($report->report_status == "Reject")
+                    <p class="text-danger">{{ $report->report_status }}</p>
+
+                    @else
+                     <p class="text-warning">{{ $report->report_status }}</p>
+
+                    @endif
                 </td>
-                <td >
+                <td>
                     <div class="d-flex justify-content-between">
                         <a href="#"><i class="fas fa-eye text-dark"></i></a>
                         <a href="#"><i class="fas fa-pen-to-square text-dark"></i></a>
-                        <a href="#"><i class="far fa-circle-xmark text-dark"></i></a>
+                        <a href="#"><i class="far fa-circle-xmark text-danger"></i></a>
                     </div>
                 </td>
             </tr>
+            @endforeach
 
-            <tr>
-                <td>
-                    <div class="d-flex align-items-center">
 
-                        <div class="ms-3">
-                            <p class="fw-bold mb-1">May</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <p class="fw-normal mb-1">300</p>
-                </td>
-                <td>
-                    <a href="#">may_slip.pdf</a>
-                </td>
-                <td class="w-25">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repellendus, praesentium!</td>
-                <td>
-                    <p class="text-success">Reviewed</p>
-                </td>
-                <td >
-                    <div class="d-flex justify-content-between">
-                        <a href="#"><i class="fas fa-eye text-dark"></i></a>
-                        <a href="#"><i class="fas fa-pen-to-square text-dark"></i></a>
-                        <a href="#"><i class="far fa-circle-xmark text-dark"></i></a>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="d-flex align-items-center">
-
-                        <div class="ms-3">
-                            <p class="fw-bold mb-1">May</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <p class="fw-normal mb-1">300</p>
-                </td>
-                <td>
-                    <a href="#">may_slip.pdf</a>
-                </td>
-                <td class="w-25">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse eos.</td>
-                <td>
-                    <p class="text-success">Reviewed</p>
-                </td>
-                <td >
-                    <div class="d-flex justify-content-between">
-                        <a href="#"><i class="fas fa-eye text-dark"></i></a>
-                        <a href="#"><i class="fas fa-pen-to-square text-dark"></i></a>
-                        <a href="#"><i class="far fa-circle-xmark text-dark"></i></a>
-                    </div>
-                </td>
-            </tr>
 
         </tbody>
     </table>

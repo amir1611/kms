@@ -5,26 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Report;
+use App\Models\Kiosk;
+
+//  @foreach($kiosks as $kiosk)
+// <option value="{{ $kiosk->id }}">1</option>
+// @endforeach 
 
 class ReportController extends Controller
 {
     public function uploadReportData(Request $request)
     {
-        // Validate the request
-        
-
-        // Handle file upload
         try {
 
             $request->validate([
+                'kioskValue' => 'required|numeric',
                 'revenue_Ringgit' => 'required|numeric',
                 'revenue_Sen' => 'required|numeric',
-                'optHours' => 'required|string', // Adjust if it's not a string
+                'optHours' => 'required|string',
                 'remark' => 'required|string',
                 'monthPicker' => 'required|date_format:Y-m',
-                'formFile' => 'required|mimes:pdf|max:10240', // Assuming PDF files, adjust as needed
+                'formFile' => 'required|mimes:pdf|max:10240',
             ]);
-            
+
             if ($request->hasFile('formFile') && $request->file('formFile')->isValid()) {
                 $file = $request->file('formFile');
                 $filePath = $file->store('reports', 'public');
@@ -33,10 +35,10 @@ class ReportController extends Controller
                 return redirect()->route('user.reportList');
                 return redirect()->back()->withErrors(['formFile' => 'Invalid file.']);
             }
-    
-            // Create a new Report instance
+
+
             $report = new Report([
-                'kiosk_id' => 2, // Assuming you have user authentication and a relationship with Kiosk
+                'kiosk_id' => $request->input('kioskValue'),
                 'report_month' => $request->input('monthPicker'),
                 'report_monthly_revenue' => $request->input('revenue_Ringgit') + ($request->input('revenue_Sen') / 100),
                 'report_operating_hour' => $request->input('optHours'),
@@ -45,16 +47,39 @@ class ReportController extends Controller
                 'report_status' => 'Pending',
                 'report_suggestion' => '',
             ]);
-    
-            // Save the Report instance
+
+
             $report->save();
-    
-            // Redirect or do anything else you need after saving the report
+
+
             return redirect()->route('user.reportList');
         } catch (\Throwable $th) {
             return view('error', [
                 'error' => $th->getMessage(),
             ]);
         }
+    }
+
+    public function showKioskListById()
+    {
+        $kiosks = Kiosk::where('user_id', auth()->user()->id)->get();
+        return view('manageReport.uploadMonthlyReport', [
+            'kiosks' => $kiosks
+        ]);
+    }
+
+    public function viewReportsList()
+    {
+        // Assuming you have user authentication and want to retrieve reports for the authenticated user
+        $userId = auth()->user()->id;
+
+        // Retrieve reports for the authenticated user
+        $reports = Report::join('kiosks', 'reports.id', '=', 'kiosks.kiosk_id')
+        ->where('kiosks.user_id', $userId)
+        ->select(
+            'reports.*'
+        )->get();
+
+        return view('manageReport.viewMonthlyReportList', ['reports' => $reports]);
     }
 }

@@ -28,10 +28,10 @@ class HomeController extends Controller
         return view('manageProfile.userprofile');
     }
 
-    public function monthlyReportList()
-    {
-        return view('manageReport.viewMonthlyReportList');
-    }
+    // public function monthlyReportList()
+    // {
+    //     return view('manageReport.viewMonthlyReportList');
+    // }
 
     public function uploadMonthlyReport()
     {

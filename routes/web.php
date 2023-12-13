@@ -45,8 +45,8 @@ Route::prefix('user')->name('user.')->group(function () {
 
     Route::group(['middleware' => ['auth', 'verified', 'user-role:user']], function () {
         Route::get('/profile', [HomeController::class, 'indexUser'])->name('home');
-        Route::get('/viewMonthlyReportList', [HomeController::class, 'monthlyReportList'])->name('reportList');
-        Route::get('/uploadMonthlyReport', [HomeController::class, 'uploadMonthlyReport'])->name('uploadReport');
+        Route::get('/viewMonthlyReportList', [ReportController::class, 'viewReportsList'])->name('reportList');
+        Route::get('/uploadMonthlyReport', [ReportController::class, 'showKioskListById'])->name('uploadReport');
         Route::post('/profile', [HomeController::class, 'updatePassword'])->name('update-password-user');
         Route::put('/{id}/update', [UserController::class, 'update'])->name('update');
 

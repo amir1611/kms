@@ -44,6 +44,23 @@
 
             <hr class="border-0">
 
+            <div class="d-flex align-items-center">
+                <div class="col-3">
+                    <p><b>Kiosk ID</b></p>
+                </div>
+
+
+
+                <select class="form-select" id="kioskValue" name="kioskValue" required>
+                    <option selected>Select kiosk</option>
+                    @foreach($kiosks as $kiosk)
+                    <option value="{{ $kiosk->kiosk_id }}">{{ $kiosk->kiosk_id }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <hr class="border-0">
+
 
             <div class="d-flex align-items-center">
                 <div class="col-3">
@@ -51,7 +68,7 @@
                 </div>
 
                 <div class="w-25">
-                    <input type="number" class="form-control" id="revenue_Ringgit" name="revenue_Ringgit" placeholder="200" >
+                    <input type="number" class="form-control" id="revenue_Ringgit" name="revenue_Ringgit" placeholder="200">
                 </div>
 
                 <h1 class="ml-2 mr-2">.</h1>
@@ -70,7 +87,7 @@
 
 
                 <div class="w-100">
-                    <input type="number" class="form-control" id="optHours" name="optHours" placeholder="Specify the expected operating hours of the kiosk" >
+                    <input type="number" class="form-control" id="optHours" name="optHours" placeholder="Specify the expected operating hours of the kiosk">
                 </div>
             </div>
 
@@ -108,6 +125,8 @@
                     <p><b>Upload Documents</b></p>
                 </div>
 
+                <!-- <h1>{{auth()->user()->id}}</h1> -->
+
 
                 <div class="mb-3">
                     <input class="form-control" type="file" id="formFile" name="formFile">
@@ -117,10 +136,9 @@
         </div>
 
         <div class="text-center mt-5">
-        @csrf
-            <!-- <button type="submit" id="addMonthlyReportBTN" class="btn pl-3 pr-3 mb-4" data-mdb-ripple-init><b>Submit</b></button> -->
-            <!-- <button type="button" id="addMonthlyReportBTN" class="btn pl-3 pr-3 mb-4" data-mdb-ripple-init><b>Submit</b></button> -->
-            <input type="submit">
+            @csrf
+            <button type="submit" id="addMonthlyReportBTN" class="btn pl-3 pr-3 mb-4" data-mdb-ripple-init><b>Submit</b></button>
+
         </div>
     </form>
 
