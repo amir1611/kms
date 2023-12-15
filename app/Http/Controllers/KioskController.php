@@ -12,17 +12,19 @@ use App\Models\User;
 
 class KioskController extends Controller
 {
-    
-    
-    
-    public function showApplyKioskForm(){
+
+
+
+    public function showApplyKioskForm()
+    {
         return view('manageKiosk.manageApplication.ApplyKiosk');
     }
 
 
 
 
-    public function applyKiosk(Request $request){
+    public function applyKiosk(Request $request)
+    {
         try {
             // Validate the form data and file uploads
             $request->validate([
@@ -65,8 +67,4 @@ class KioskController extends Controller
             ]);
         }
     }
-
-
-
-
 }
