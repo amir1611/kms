@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\KioskController;
+
 
 
 /*
@@ -49,6 +51,11 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/uploadMonthlyReport', [ReportController::class, 'showKioskListById'])->name('uploadReport');
         Route::post('/profile', [HomeController::class, 'updatePassword'])->name('update-password-user');
         Route::put('/{id}/update', [UserController::class, 'update'])->name('update');
+
+        //manageKiosk
+        Route::get('/applyKiosk', [KioskController::class, 'showApplyKioskForm'])->name('applyKiosk');
+        Route::post('/applyKiosk', [KioskController::class, 'applyKiosk'])->name('submitApplyKiosk');
+
 
         Route::post('/uploadReportData', [ReportController::class, 'uploadReportData'])->name('uploadReportData');
     });

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('business_role');
             $table->string('business_category');
             $table->string('business_information');
-            $table->integer('business_operating_hour');
+            $table->string('business_operating_hour');
             $table->date('business_start_date');
             $table->binary('ssm_pdf');
             $table->binary('business_proposal_pdf');

@@ -13,11 +13,15 @@
 
     <!-- Fonts -->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
 
     <!-- Styles -->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -46,94 +50,28 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="{{route('user.home')}}">
+                <a class="nav-link" href="{{ route('user.home') }}">
                     <i class="fas fa-fw fa-user"></i>
                     <span>{{ __('Profile') }}</span></a>
             </li>
 
-            <!-- Nav Item - Profile -->
-            {{-- <li class="nav-item">
-            <a class="nav-link"
-                style="padding-right: 5px;"
-                href="{{route('user.prepCourse.manage')}}">
-            <i class="fas fa-fw fa-book"></i>
-            <span>{{ __('Marriage Preparation Course') }}</span>
-            </a>
-            </li> --}}
-
-            {{-- <li class="nav-item">
-            <a class="nav-link" href="{{route('user.prepCourse.payment')}}">
-            <i class="fas fa-fw fa-hands-helping"></i>
-            <span>{{ __('Payment Proof') }}</span>
-            </a>
-            </li> --}}
-
-            {{-- <li class="nav-item">
-            <a class="nav-link" href="user.application.manageMarReq">
-                <i class="fas fa-fw fa-cloud"></i>
-                <span>{{ __('Marriage Application') }}</span>
-            </a>
-            </li> --}}
-            {{--
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('user.application.document')}}">
-            <i class="fas fa-fw fa-hands-helping"></i>
-            <span>{{ __('Marriage Support Document') }}</span>
-            </a>
-            </li> --}}
-
-            <!-- Nav Item - Profile -->
-            {{-- <li class="nav-item ">
-            <a class="nav-link" href="{{route('user.register.spouseList')}}">
-            <i class="fas fa-fw fa-magic"></i>
-            <span>{{ __('Marriage Registration') }}</span>
-            </a>
-            </li>
-
-            <li class="nav-item ">
-                <a class="nav-link" href="{{route('user.card.manageUser')}}">
-                    <i class="fa-solid fa-address-card"></i>
-                    <span>{{ __('Marriage Card') }}</span>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('user.applyKiosk') }}">
+                    <i class="bi bi-shop-window"></i>
+                    <span>{{ __('Manage Kiosk') }}</span>
                 </a>
-            </li> --}}
-
-            {{-- <!-- Nav Item - About -->
-        <li class="nav-item">
-            <a class="nav-link" href="{{route('user.prepCourse.manage')}}">
-            <i class="fas fa-fw fa-hands-helping"></i>
-            <span>{{ __('Marriage Preparation') }}</span>
-            </a>
-            </li> --}}
-
-            {{-- <li class="nav-item">
-            <a class="nav-link" href="{{route('user.consultation.manage')}}">
-            <i class="fas fa-fw fa-hands-helping"></i>
-            <span>{{ __('Consultation') }}</span>
-            </a>
-            </li> --}}
-
-            {{-- <li class="nav-item">
-            <a class="nav-link" href="{{route('user.incentive.apply')}}">
-            <i class="fas fa-fw  fa-credit-card-alt"></i>
-            <span>{{ __('Incentives') }}</span>
-            </a>
-            </li> --}}
-
-            {{-- <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-fw fa-pencil-square"></i>
-                <span>{{ __('Document Correction') }}</span>
-            </a>
-            </li> --}}
+            </li>
+            
 
             <li class="nav-item">
-                <a class="nav-link" href="{{route('user.reportList')}}">
+                <a class="nav-link" href="{{ route('user.reportList') }}">
                     <i class="bi bi-file-earmark-bar-graph-fill"></i>
                     <span>{{ __('Monthly Report') }}</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <a class="nav-link" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fas fa-fw  fa-sign-out"></i>
                     <span>{{ __('Log Out') }}</span>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -206,14 +144,16 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                     {{ Auth::user()->name }}<br>
                                     {{ Auth::user()->ic }}
                                 </span>
 
 
-                                <figure class="img-profile rounded-circle avatar font-weight-bold" data-initial="{{ Auth::user()->name[0] }}"></figure>
+                                <figure class="img-profile rounded-circle avatar font-weight-bold"
+                                    data-initial="{{ Auth::user()->name[0] }}"></figure>
                             </a>
                             <!-- Dropdown - User Information -->
                             {{-- <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -235,38 +175,39 @@
                                 {{ __('Logout') }}
                             </a>
             </div> --}}
-            </li>
+                        </li>
 
-            </ul>
+                    </ul>
 
-            </nav>
-            <!-- End of Topbar -->
+                </nav>
+                <!-- End of Topbar -->
 
-            <!-- Begin Page Content -->
-            <div class="container-fluid">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 
-                @yield('main-content')
+                    @yield('main-content')
+
+                </div>
+                <!-- /.container-fluid -->
 
             </div>
-            <!-- /.container-fluid -->
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; E-MUNAKAHAT<form id="logout-form" action="{{ route('logout') }}"
+                                method="POST" style="display: none;">
+                                @csrf
+                            </form> {{ now()->year }}</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
 
         </div>
-        <!-- End of Main Content -->
-
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; E-MUNAKAHAT<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form> {{ now()->year }}</span>
-                </div>
-            </div>
-        </footer>
-        <!-- End of Footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
+        <!-- End of Content Wrapper -->
 
     </div>
 
@@ -276,7 +217,8 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -288,7 +230,8 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-link" type="button" data-dismiss="modal">{{ __('Cancel') }}</button>
-                    <a class="btn btn-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                    <a class="btn btn-danger" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
@@ -298,12 +241,14 @@
     </div>
 
     <!-- Scripts -->
-    
+
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
