@@ -9,17 +9,6 @@ use App\Http\Controllers\KioskController;
 
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::get('/', function () {
     return redirect('/login');
 });
@@ -28,43 +17,51 @@ Auth::routes();
 
 Auth::routes(['verify' => true]);
 
+
+//ALL ROUTES FOR PUPUK ADMIN
 Route::prefix('pupuk-admin')->name('pupuk.')->group(function () {
     Route::group(['middleware' => ['auth', 'verified', 'user-role:pupuk-admin']], function () {
+
+        //manageAccount
         Route::put('/{id}/update', [UserController::class, 'update'])->name('update');
         Route::get('/profile', [HomeController::class, 'indexPupukAdmin'])->name('home');
         Route::post('/profile', [HomeController::class, 'updatePassword'])->name('update-password-staff');
+        Route::get('/', [HomeController::class, 'indexPupukAdmin'])->name('home');
+
+        //manageKiosk
+
     });
 });
 
-Route::group(['middleware' => ['auth', 'verified', 'user-role:pupuk-admin']], function () {
-    Route::get('/', [HomeController::class, 'indexPupukAdmin'])->name('home');
-});
 
 
-
+//ALL ROUTES FOR KIOSK PARTICIPANT
 Route::prefix('user')->name('user.')->group(function () {
-
-
     Route::group(['middleware' => ['auth', 'verified', 'user-role:user']], function () {
+        
+        //manageAccount
         Route::get('/profile', [HomeController::class, 'indexUser'])->name('home');
-        Route::get('/viewMonthlyReportList', [ReportController::class, 'viewReportsList'])->name('reportList');
-        Route::get('/uploadMonthlyReport', [ReportController::class, 'showKioskListById'])->name('uploadReport');
         Route::post('/profile', [HomeController::class, 'updatePassword'])->name('update-password-user');
         Route::put('/{id}/update', [UserController::class, 'update'])->name('update');
 
-        //manageKiosk
+        //manageKiosk 
         Route::get('/applyKiosk', [KioskController::class, 'showApplyKioskForm'])->name('applyKiosk');
         Route::post('/applyKiosk', [KioskController::class, 'applyKiosk'])->name('submitApplyKiosk');
 
 
+        //manageReport
+        Route::get('/viewMonthlyReportList', [ReportController::class, 'viewReportsList'])->name('reportList');
+        Route::get('/uploadMonthlyReport', [ReportController::class, 'showKioskListById'])->name('uploadReport');
         Route::post('/uploadReportData', [ReportController::class, 'uploadReportData'])->name('uploadReportData');
     });
 });
 
 
+//ALL ROUTES FOR ADMIN
 Route::prefix('admin')->name('admin.')->group(function () {
-
     Route::group(['middleware' => ['auth', 'verified', 'user-role:admin']], function () {
+
+        //manageAccount
         Route::get('/', [HomeController::class, 'indexAdmin'])->name('home');
         Route::get('/register-staff', [UserController::class, 'registerStaff'])->name('register-staff');
         Route::post('/store-staff', [UserController::class, 'storeStaff'])->name('store-staff');
@@ -72,19 +69,23 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 
-
+//ALL ROUTES FOR FK TECHNICAL 
 Route::prefix('fk-technical')->name('technical.')->group(function () {
-
     Route::group(['middleware' => ['auth', 'verified', 'user-role:fk-technical']], function () {
+
+        //manageAccount
         Route::get('/', [HomeController::class, 'indexFKTechnical'])->name('home');
         Route::get('/register-staff', [UserController::class, 'registerStaff'])->name('register-staff');
         Route::post('/store-staff', [UserController::class, 'storeStaff'])->name('store-staff');
     });
 });
 
-Route::prefix('fk-bursary')->name('bursary.')->group(function () {
 
+//ALL ROUTES FOR FK BURSARY
+Route::prefix('fk-bursary')->name('bursary.')->group(function () {
     Route::group(['middleware' => ['auth', 'verified', 'user-role:fk-bursary']], function () {
+
+        //manageAccount
         Route::get('/', [HomeController::class, 'indexFKBursary'])->name('home');
         Route::get('/register-staff', [UserController::class, 'registerStaff'])->name('register-staff');
         Route::post('/store-staff', [UserController::class, 'storeStaff'])->name('store-staff');
