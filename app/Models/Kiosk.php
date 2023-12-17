@@ -28,4 +28,12 @@ class Kiosk extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // Kiosk.php
+
+public function application()
+{
+    return $this->belongsTo(applications::class, 'application_id', 'application_id');
+}
+
 }

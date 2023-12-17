@@ -37,4 +37,12 @@ class applications extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // applications.php
+
+public function kiosk()
+{
+    return $this->hasOne(Kiosk::class, 'application_id', 'application_id');
+}
+
 }

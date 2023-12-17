@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use App\Models\applications;
 use App\Models\Kiosk;
 use App\Models\User;
+
 
 
 class KioskController extends Controller
@@ -171,5 +173,66 @@ class KioskController extends Controller
         $user = $application->user;
 
         return view('manageKiosk.manageParticipant.ViewActiveParticipant', ['application' => $application, 'user' => $user]);
+    }
+
+    public function viewKioskParticipant(Request $request)
+    {
+        // Fetch kiosk applications data from the applications table and related user and kiosk data
+        $query = applications::join('users', 'applications.user_id', '=', 'users.id')
+            ->leftJoin('kiosks', 'users.id', '=', 'kiosks.user_id')
+            ->select(
+                'applications.application_id',
+                'users.name',
+                'applications.business_role',
+                'applications.business_name',
+                'users.email',
+                'users.ic',
+                'kiosks.id as kiosk_id',
+                'applications.application_status'
+            )
+            ->where('applications.application_status', 'Active'); // Filter only 'Active' applications
+
+        // Search logic based on the search query
+        $searchQuery = $request->input('search');
+        if ($searchQuery) {
+            $query->where(function ($subquery) use ($searchQuery) {
+                $subquery->where('users.name', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('applications.business_name', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('users.email', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('users.ic', 'like', '%' . $searchQuery . '%');
+            });
+        }
+
+        // Execute the query with pagination
+        $kioskApplications = $query->paginate(10); // Adjust the number as per your requirement
+
+        // Pass the data to the view along with the current search query
+        return view('manageKiosk.manageParticipant.KioskParticipant', [
+            'kioskApplications' => $kioskApplications,
+            'currentSearch' => $searchQuery,
+        ]);
+    }
+
+
+    public function deleteKiosk($id)
+    {
+        // Find the kiosk by id and delete it
+        Kiosk::find($id)->delete();
+
+        // Update the corresponding application_status to 'Inactive'
+        applications::where('id', $id)->update(['application_status' => 'Inactive']);
+
+        // Redirect back or wherever you want
+        return redirect()->back()->with('success', 'Kiosk deleted successfully.');
+    }
+
+
+    public function updateApplicationStatus($id)
+    {
+        // Find the application by id and update its status to 'Inactive'
+        applications::where('application_id', $id)->update(['application_status' => 'Inactive']);
+
+        // Redirect back or wherever you want
+        return redirect()->back()->with('success', 'Application status updated successfully.');
     }
 }
