@@ -39,7 +39,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Add Comments</h4>
+                        <h4 class="card-title">Add Comments(Optional)</h4>
                         <form method="post"
                             action="{{ route('pupuk.processApplication', ['id' => $application->application_id]) }}">
                             @csrf
@@ -50,9 +50,8 @@
                             <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                 <button type="submit" class="btn btn-success" name="action"
                                     value="approve">Approve</button>
-                                <button type="submit" class="btn btn-danger" name="action" value="reject">Reject</button>
-
-
+                                <button type="submit"class="btn btn-danger" style="margin-left: 20px" name="action"
+                                    value="reject">Reject</button>
                             </div>
                         </form>
                     </div>

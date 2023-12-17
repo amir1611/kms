@@ -33,18 +33,19 @@
         use Illuminate\Support\Str;
     @endphp
 
+    <div class="row mt-4 profile-header">
+        <h4 class="font-weight-bold mx-auto mt-2 profile-title">Manage Kiosk Application</h4>
+    </div>
+
     <div class="container2 p-1" style="background-color: white;border-radius: 30px;margin: 20px 100px;">
 
-        <div class="row mt-4 profile-header">
-            <h4 class="font-weight-bold mx-auto mt-2 profile-title">Manage Kiosk Application</h4>
-        </div>
+
 
         <div class="d-flex justify-content-between align-items-center mt-3">
-            <h4><b>All Kiosk Applications</b></h4>
+            <h4 style="margin-left: 20px"><b>All Kiosk Applications</b></h4>
 
             <div class="d-flex">
-                <form class="d-flex input-group w-auto mr-4" method="get"
-                    action="{{ route('pupuk.viewKioskApplication') }}">
+                <form class="d-flex input-group w-auto mr-4" method="get" action="{{ route('pupuk.viewKioskApplication') }}">
 
                     <span class="input-group-text searchLogo bg-light" id="search-addon">
                         <i class="fas fa-search"></i>
@@ -101,13 +102,21 @@
                         <td>{{ $application->ic }}</td>
                         <td>
                             @if ($application->application_status == 'Active')
-                                <p class="text-success">{{ $application->application_status }}</p>
+                                <p
+                                    style="border-radius: 4px; border: 1px solid #000; background: rgba(0, 255, 195, 0.38); color:black;">
+                                    {{ $application->application_status }}</p>
                             @elseif ($application->application_status == 'Inactive')
-                                <p class="text-danger">{{ $application->application_status }}</p>
+                                <p
+                                    style="border-radius: 4px; border: 1px solid #000; background: rgba(106, 0, 255, 0.38); color:black;">
+                                    {{ $application->application_status }}</p>
                             @elseif ($application->application_status == 'New')
-                                <p class="text-danger">{{ $application->application_status }}</p>
+                                <p
+                                    style="border-radius: 4px; border: 1px solid #000; background: rgba(255, 242, 0, 0.38); color:black;">
+                                    {{ $application->application_status }}</p>
                             @elseif ($application->application_status == 'Rejected')
-                                <p class="text-warning">{{ $application->application_status }}</p>
+                                <p
+                                    style="border-radius: 4px; border: 1px solid #000; background: rgba(255, 0, 0, 0.38); color:black;">
+                                    {{ $application->application_status }}</p>
                             @else
                                 <p class="text-warning">{{ $application->application_status }}</p>
                             @endif
@@ -115,7 +124,8 @@
                         <td>
                             <div class="d-flex justify-content-center">
                                 @if ($application->application_status === 'New')
-                                    <a href="{{ route('pupuk.viewApplicationApproval', ['id' => $application->application_id]) }}">
+                                    <a
+                                        href="{{ route('pupuk.viewApplicationApproval', ['id' => $application->application_id]) }}">
                                         <i class="fas fa-eye text-dark"></i>
                                     </a>
                                 @else

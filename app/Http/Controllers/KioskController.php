@@ -164,8 +164,12 @@ class KioskController extends Controller
         return redirect()->route('pupuk.viewKioskApplication', ['id' => $id])->with('success', 'Application processed successfully.');
     }
 
-    public function viewApplication()
+    public function viewApplication($id)
     {
-        return view('manageKiosk.manageParticipant.ViewActiveParticipant');
+        // Fetch application details along with user details
+        $application = Applications::findOrFail($id);
+        $user = $application->user;
+
+        return view('manageKiosk.manageParticipant.ViewActiveParticipant', ['application' => $application, 'user' => $user]);
     }
 }
