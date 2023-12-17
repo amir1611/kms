@@ -82,8 +82,7 @@ class KioskController extends Controller
                 'applications.application_status'
             );
 
-       
-        $sort = strtolower($request->input('sort', 'all')); 
+        $sort = strtolower($request->input('sort', 'all'));
 
         if ($sort !== 'all') {
             switch ($sort) {
@@ -113,8 +112,8 @@ class KioskController extends Controller
             });
         }
 
-        // Execute the query
-        $kioskApplications = $query->get();
+        // Execute the query with pagination
+        $kioskApplications = $query->paginate(10); // Adjust the number as per your requirement
 
         // Pass the data to the view along with the current sorting option and search query
         return view('manageKiosk.manageApplication.KioskApplication', [
@@ -123,6 +122,7 @@ class KioskController extends Controller
             'currentSearch' => $searchQuery,
         ]);
     }
+
 
 
     public function viewApplicationApproval($id)
