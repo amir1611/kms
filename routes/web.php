@@ -32,12 +32,9 @@ Route::prefix('pupuk-admin')->name('pupuk.')->group(function () {
         Route::get('/kiosk-application', [KioskController::class, 'viewKioskApplication'])->name('viewKioskApplication');
         Route::get('/view-application-approval/{id}', [KioskController::class, 'viewApplicationApproval'])->name('viewApplicationApproval');
         Route::post('/process-application/{id}', [KioskController::class, 'processApplication'])->name('processApplication');
-        Route::get('/view-pdf/{filename}', 'KioskController@viewPdf')->name('viewPdf');
-
-
-
+        Route::get('/view-application/{id}', [KioskController::class, 'viewApplication'])->name('viewApplication');
     });
-    });
+});
 
 
 
@@ -45,7 +42,7 @@ Route::prefix('pupuk-admin')->name('pupuk.')->group(function () {
 //ALL ROUTES FOR KIOSK PARTICIPANT
 Route::prefix('user')->name('user.')->group(function () {
     Route::group(['middleware' => ['auth', 'verified', 'user-role:user']], function () {
-        
+
         //manageAccount
         Route::get('/profile', [HomeController::class, 'indexUser'])->name('home');
         Route::post('/profile', [HomeController::class, 'updatePassword'])->name('update-password-user');

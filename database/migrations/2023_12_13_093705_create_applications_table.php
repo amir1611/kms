@@ -23,7 +23,7 @@ return new class extends Migration
             $table->binary('ssm_pdf');
             $table->binary('business_proposal_pdf');
             $table->string('application_status');
-            $table->string('application_comment');
+            $table->string('application_comment')->nullable(); 
             $table->timestamps();
         });
     }

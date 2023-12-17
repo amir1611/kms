@@ -24,6 +24,7 @@
     }
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 @extends('layouts.pupukAdminNav')
 
@@ -41,35 +42,43 @@
 
     </div>
 
-    <div class="container2 p-5"
+    <div class="container2 p-1"
         style="background-color: white;border-radius: 30px;margin-top: 20px;margin-bottom: 20px;margin-left: 100px;margin-right: 100px;">
 
         <div class="d-flex justify-content-between align-items-center">
-            <h4><b>All Kiosk Applications</b></h4>
+            <h4 style="margin-left: 20px"><b>All Kiosk Applications</b></h4>
 
             <div class="d-flex">
-                <form class="d-flex input-group w-auto mr-4">
+                <form style="margin-top: 20px" class="d-flex input-group w-auto mr-4" method="get"
+                    action="{{ route('pupuk.viewKioskApplication') }}">
 
                     <span class="input-group-text searchLogo bg-light" id="search-addon">
                         <i class="fas fa-search"></i>
                     </span>
 
-                    <input type="search" class="form-control searchField bg-light" placeholder="Search" aria-label="Search"
+                    <input type="search" class="form-control searchField bg-light" name="search"
+                        value="{{ $currentSearch ?? '' }}" placeholder="Search" aria-label="Search"
                         aria-describedby="search-addon" />
 
                 </form>
 
-                <div class="dropdown mr-4  dropBTN">
+
+                <div class="dropdown mr-4  dropBTN" style="margin-top: 20px">
                     <button class="btn bg-light dropdown-toggle dropBTN" type="button" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Sort by: <b>Status</b>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#">New</a></li>
-                        <li><a class="dropdown-item" href="#">Active</a></li>
-                        <li><a class="dropdown-item" href="#">Inactive</a></li>
-                        <li><a class="dropdown-item" href="#">Rejected</a></li>
-
+                        <li><a class="dropdown-item"
+                                href="{{ route('pupuk.viewKioskApplication', ['sort' => 'All']) }}">All</a></li>
+                        <li><a class="dropdown-item"
+                                href="{{ route('pupuk.viewKioskApplication', ['sort' => 'New']) }}">New</a></li>
+                        <li><a class="dropdown-item"
+                                href="{{ route('pupuk.viewKioskApplication', ['sort' => 'Active']) }}">Active</a></li>
+                        <li><a class="dropdown-item"
+                                href="{{ route('pupuk.viewKioskApplication', ['sort' => 'Inactive']) }}">Inactive</a></li>
+                        <li><a class="dropdown-item"
+                                href="{{ route('pupuk.viewKioskApplication', ['sort' => 'Rejected']) }}">Rejected</a></li>
                     </ul>
                 </div>
             </div>
@@ -77,8 +86,8 @@
 
         </div>
 
-        <table class="table align-middle mb-0 bg-white">
-            <thead class="">
+        <table class="table align-middle mb-0 bg-white text-center">
+            <thead class="text-center">
                 <tr>
                     <th>Application ID</th>
                     <th>Name</th>
@@ -93,16 +102,16 @@
             <tbody>
 
                 @foreach ($kioskApplications as $application)
-                    <tr>
+                    <tr class="text-center">
                         <td>
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center justify-content-center">
                                 <div class="ms-3">
                                     <p class="fw-bold mb-1">{{ $application->application_id }}</p>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center justify-content-center">
                                 <p class="fw-normal mb-1">{{ $application->name }}</p>
                             </div>
                         </td>
@@ -122,26 +131,32 @@
                         <td>
 
                             <p class="fw-normal mb-1">{{ $application->ic }}</p>
-                            <td>
-                                @if ($application->application_status == 'Active')
-                                    <p class="text-success">{{ $application->application_status }}</p>
-                                @elseif ($application->application_status == 'Inactive')
-                                    <p class="text-danger">{{ $application->application_status }}</p>
-                                @elseif ($application->application_status == 'New')
-                                    <p class="text-danger">{{ $application->application_status }}</p>
-                                @elseif ($application->application_status == 'Rejected')
-                                    <p class="text-warning">{{ $application->application_status }}</p>
-                                @else
-                                    <p class="text-warning">{{ $application->application_status }}</p>
-                                @endif
-                            </td>
-                            
                         <td>
-                            <div class="d-flex justify-content-between">
-                                <a href="{{ route('pupuk.viewApplicationApproval', ['id' => $application->application_id]) }}">
-                                    <i class="fas fa-eye text-dark"></i>
-                                </a>
-                                
+                            @if ($application->application_status == 'Active')
+                                <p class="text-success">{{ $application->application_status }}</p>
+                            @elseif ($application->application_status == 'Inactive')
+                                <p class="text-danger">{{ $application->application_status }}</p>
+                            @elseif ($application->application_status == 'New')
+                                <p class="text-danger">{{ $application->application_status }}</p>
+                            @elseif ($application->application_status == 'Rejected')
+                                <p class="text-warning">{{ $application->application_status }}</p>
+                            @else
+                                <p class="text-warning">{{ $application->application_status }}</p>
+                            @endif
+                        </td>
+
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                @if ($application->application_status === 'New')
+                                    <a
+                                        href="{{ route('pupuk.viewApplicationApproval', ['id' => $application->application_id]) }}">
+                                        <i class="fas fa-eye text-dark"></i>
+                                    </a>
+                                @else
+                                    <a href="{{ route('pupuk.viewApplication', ['id' => $application->application_id]) }}">
+                                        <i class="fas fa-eye text-dark"></i>
+                                    </a>
+                                @endif
                             </div>
                         </td>
                     </tr>

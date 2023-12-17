@@ -68,10 +68,10 @@ class KioskController extends Controller
         }
     }
 
-    public function viewKioskApplication()
+    public function viewKioskApplication(Request $request)
     {
         // Fetch kiosk applications data from the applications table and related user data
-        $kioskApplications = applications::join('users', 'applications.user_id', '=', 'users.id')
+        $query = applications::join('users', 'applications.user_id', '=', 'users.id')
             ->select(
                 'applications.application_id',
                 'users.name',
@@ -80,11 +80,48 @@ class KioskController extends Controller
                 'users.email',
                 'users.ic',
                 'applications.application_status'
-            )
-            ->get();
+            );
 
-        // Pass the data to the view
-        return view('manageKiosk.manageApplication.KioskApplication', ['kioskApplications' => $kioskApplications]);
+       
+        $sort = strtolower($request->input('sort', 'all')); 
+
+        if ($sort !== 'all') {
+            switch ($sort) {
+                case 'active':
+                    $query->where('applications.application_status', 'Active');
+                    break;
+                case 'inactive':
+                    $query->where('applications.application_status', 'Inactive');
+                    break;
+                case 'rejected':
+                    $query->where('applications.application_status', 'Rejected');
+                    break;
+                case 'new':
+                    $query->where('applications.application_status', 'New');
+                    break;
+            }
+        }
+
+        // Search logic based on the search query
+        $searchQuery = $request->input('search');
+        if ($searchQuery) {
+            $query->where(function ($subquery) use ($searchQuery) {
+                $subquery->where('users.name', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('applications.business_name', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('users.email', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('users.ic', 'like', '%' . $searchQuery . '%');
+            });
+        }
+
+        // Execute the query
+        $kioskApplications = $query->get();
+
+        // Pass the data to the view along with the current sorting option and search query
+        return view('manageKiosk.manageApplication.KioskApplication', [
+            'kioskApplications' => $kioskApplications,
+            'currentSort' => $sort,
+            'currentSearch' => $searchQuery,
+        ]);
     }
 
 
@@ -100,18 +137,18 @@ class KioskController extends Controller
     public function processApplication(Request $request, $id)
     {
         $application = Applications::findOrFail($id);
-    
+
         // Validate the request
         $request->validate([
-            'application_comment' => 'nullable|string', 
+            'application_comment' => 'nullable|string',
         ]);
-    
+
         // Update application status and comment
         $application->update([
             'application_status' => ($request->input('action') === 'approve') ? 'Active' : 'Rejected',
             'application_comment' => $request->input('application_comment'),
         ]);
-    
+
         if ($request->input('action') === 'approve') {
             // Create a new kiosk record
             $kiosk = new Kiosk([
@@ -119,13 +156,16 @@ class KioskController extends Controller
                 'application_id' => $application->application_id,
                 'user_id' => $application->user_id,
             ]);
-    
+
             // Save the kiosk
             $kiosk->save();
         }
-    
-        return redirect()->route('pupuk.viewApplicationApproval', ['id' => $id])->with('success', 'Application processed successfully.');
+
+        return redirect()->route('pupuk.viewKioskApplication', ['id' => $id])->with('success', 'Application processed successfully.');
     }
 
-    
+    public function viewApplication()
+    {
+        return view('manageKiosk.manageParticipant.ViewActiveParticipant');
+    }
 }
