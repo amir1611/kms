@@ -47,52 +47,12 @@
                 <span>{{ __('Profile') }}</span></a>
         </li>
 
-        <!-- Nav Item - Profile -->
-        {{-- <li class="nav-item ">
-            <a class="nav-link" href="{{route('pupuk.prepCourse.applicantList')}}">
-                <i class="fas fa-fw fa-list"></i>
-                <span>{{ __('List of Applicant') }}</span>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('pupuk.viewKioskApplication') }}">
+                <i class="fa fa-fw fa-user-plus"></i>
+                <span>{{ __('Kiosk Application') }}</span>
             </a>
         </li>
-
-        <li class="nav-item ">
-            <a class="nav-link" href="{{route('pupuk.consultation.manage')}}">
-                <i class="fas fa-fw fa-ticket"></i>
-                <span>{{ __('Consultation') }}</span>
-            </a>
-        </li>
-
-        <li class="nav-item ">
-            <a class="nav-link" href="{{route('pupuk.consultant.manage')}}">
-                <i class="fas fa-fw fa-address-card"></i>
-                <span>Consultant</span>
-            </a>
-        </li>
-
-        <li class="nav-item ">
-            <a class="nav-link" href="{{route('pupuk.register.manage')}}">
-                <i class="fas fa-fw fa-code-fork"></i>
-                <span>Marriage Registration</span>
-            </a>
-            </li>
-
-            <li class="nav-item ">
-            <a class="nav-link" href="{{route('pupuk.card.manage')}}">
-                <i class="fas fa-fw fa-cloud"></i>
-                <span>Marriage Card</span>
-
-            <a class="nav-link" href="{{route('pupuk.incentive.view')}}">
-                <i class="fas fa-fw fa-credit-card"></i>
-                <span>{{ __('Incentive') }}</span></a>
-        </li> --}}
-
-        <!-- Nav Item - About -->
-        {{-- <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-fw fa-hands-helping"></i>
-                <span>{{ __('About') }}</span>
-            </a>
-        </li> --}}
 
         <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal"

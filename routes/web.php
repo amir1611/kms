@@ -29,9 +29,16 @@ Route::prefix('pupuk-admin')->name('pupuk.')->group(function () {
         Route::get('/', [HomeController::class, 'indexPupukAdmin'])->name('home');
 
         //manageKiosk
+        Route::get('/kiosk-application', [KioskController::class, 'viewKioskApplication'])->name('viewKioskApplication');
+        Route::get('/view-application-approval/{id}', [KioskController::class, 'viewApplicationApproval'])->name('viewApplicationApproval');
+        Route::post('/process-application/{id}', [KioskController::class, 'processApplication'])->name('processApplication');
+        Route::get('/view-pdf/{filename}', 'KioskController@viewPdf')->name('viewPdf');
+
+
 
     });
-});
+    });
+
 
 
 

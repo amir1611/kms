@@ -60,8 +60,8 @@
                     <div class="w-100">
                         <select class="form-select" id="business_role" name="business_role" required>
                             <option selected>Select business role</option>
-                            <option value="Role1">FK STUDENTS</option>
-                            <option value="Role2">VENDOR</option>
+                            <option value="FK STUDENTS">FK STUDENTS</option>
+                            <option value="VENDOR">VENDOR</option>
                         </select>
                     </div>
                 </div>
@@ -76,13 +76,13 @@
                     <div class="w-100">
                         <select class="form-select" id="business_category" name="business_category" required>
                             <option selected>Select business category</option>
-                            <option value="Category1">Food & Baverages</option>
-                            <option value="Category2">Apparel & Accessories</option>
-                            <option value="Category3">Health & Beauty</option>
-                            <option value="Category4">Sports & Lifestyle</option>
-                            <option value="Category5">Home & Living</option>
-                            <option value="Category6">Electronics & Accessories</option>
-                            <option value="Category7">Books & Stationery</option>
+                            <option value="Food & Baverages">Food & Baverages</option>
+                            <option value="Apparel & Accessories">Apparel & Accessories</option>
+                            <option value="Health & Beauty">Health & Beauty</option>
+                            <option value="Sports & Lifestyle">Sports & Lifestyle</option>
+                            <option value="Home & Living">Home & Living</option>
+                            <option value="Electronics & Accessories">Electronics & Accessories</option>
+                            <option value="Books & Stationery">Books & Stationery</option>
                         </select>
                     </div>
                 </div>

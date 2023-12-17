@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('kiosks', function (Blueprint $table) {
-            $table->id('kiosk_id');
+            $table->id(); 
             $table->string('application_id');
-            $table->foreignId('user_id')->constrained('users', 'id');
-            $table->string('payment_id');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('payment_id')->nullable(); 
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.

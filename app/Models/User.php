@@ -50,9 +50,11 @@ class User extends Authenticatable implements MustVerifyEmail
 	];
 
     /**SET THE ROLE
-     * USER=0
-     * STAFF=1
+     * KIOSK PARTICIPANT=0
+     * PUPUK ADMIN=1
      * ADMIN=2
+	 * FK-TECHNICAL=3
+	 * FK-BURSART = 4
      */
 	protected function role(): Attribute
 	{

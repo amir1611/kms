@@ -67,4 +67,65 @@ class KioskController extends Controller
             ]);
         }
     }
+
+    public function viewKioskApplication()
+    {
+        // Fetch kiosk applications data from the applications table and related user data
+        $kioskApplications = applications::join('users', 'applications.user_id', '=', 'users.id')
+            ->select(
+                'applications.application_id',
+                'users.name',
+                'applications.business_role',
+                'applications.business_name',
+                'users.email',
+                'users.ic',
+                'applications.application_status'
+            )
+            ->get();
+
+        // Pass the data to the view
+        return view('manageKiosk.manageApplication.KioskApplication', ['kioskApplications' => $kioskApplications]);
+    }
+
+
+    public function viewApplicationApproval($id)
+    {
+        // Fetch application details along with user details
+        $application = Applications::findOrFail($id);
+        $user = $application->user;
+
+        return view('manageKiosk.manageApplication.KioskApproval', ['application' => $application, 'user' => $user]);
+    }
+
+    public function processApplication(Request $request, $id)
+    {
+        $application = Applications::findOrFail($id);
+    
+        // Validate the request
+        $request->validate([
+            'application_comment' => 'nullable|string', 
+        ]);
+    
+        // Update application status and comment
+        $application->update([
+            'application_status' => ($request->input('action') === 'approve') ? 'Active' : 'Rejected',
+            'application_comment' => $request->input('application_comment'),
+        ]);
+    
+        if ($request->input('action') === 'approve') {
+            // Create a new kiosk record
+            $kiosk = new Kiosk([
+                'kiosk_id' => 'K' . $application->user_id . '-' . time(),
+                'application_id' => $application->application_id,
+                'user_id' => $application->user_id,
+            ]);
+    
+            // Save the kiosk
+            $kiosk->save();
+        }
+    
+        return redirect()->route('pupuk.viewApplicationApproval', ['id' => $id])->with('success', 'Application processed successfully.');
+    }
+
+    
 }
