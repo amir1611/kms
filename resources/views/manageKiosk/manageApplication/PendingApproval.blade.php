@@ -8,7 +8,7 @@
                     <img src="{{ asset('assets/tick.png') }}" style="margin-left: -25px;width: 185px;height: 197px;" draggable="false" alt="">
                 </div>
                 <p style="font-size: 24px; text-align: center;">Your application request has been submitted successfully.</p>
-                <p style="font-size: 24px; text-align: center;">You will be notified in your email regarding the status of the application.</p>
+                <p style="font-size: 24px; text-align: center;">Your application will be processed within 24 hours. Can check the status over here</p>
                 <p style="font-size: 24px; text-align: center;">Thank You.</p>
             </div>
         </div>
