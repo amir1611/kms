@@ -19,8 +19,86 @@ class KioskController extends Controller
 
     public function showApplyKioskForm()
     {
+        $user = Auth::user();
+
+        // Check if the user has an application
+        $application = Applications::where('user_id', $user->id)->first();
+
+        if (!$application) {
+            // Scenario 1: User doesn't have any application_id
+            $application = new Applications(); // Create an empty application object
+            return view('manageKiosk.manageApplication.ApplyKiosk', compact('application'));
+        }
+
+        switch ($application->application_status) {
+            case 'New':
+                // Scenario 2: User has application_id with application_status "New"
+                return view('manageKiosk.manageApplication.PendingApproval', compact('application'));
+            case 'Active':
+                // Scenario 3: User has application_id with application_status "Active"
+                return view('manageKiosk.manageApplication.EditKiosk', compact('application'));
+            case 'Inactive':
+                // Scenario 4: User has application_id with application_status "Inactive"
+                return view('manageKiosk.manageApplication.ApplyKiosk', compact('application'));
+            case 'Rejected':
+                // Scenario 5: User has application_id with application_status "Rejected"
+                // You can pass the application_comment to the view if needed
+                return view('manageKiosk.manageApplication.RejectedApplication', compact('application'));
+            default:
+                // Handle other scenarios if needed
+                return abort(404); // Example: Page not found
+        }
+    }
+
+    public function updateKiosk(Request $request, $id)
+    {
+        // Validate and update the application data
+        $request->validate([
+            'business_name' => 'required|string',
+            'business_role' => 'required|string',
+            'business_category' => 'required|string',
+            'business_information' => 'required|string',
+            'business_operating_hour' => 'required|string',
+            // Add more validation rules as needed
+        ]);
+
+        // Update application data
+        $application = Applications::findOrFail($id);
+
+        $application->update([
+            'business_name' => $request->input('business_name'),
+            'business_role' => $request->input('business_role'),
+            'business_category' => $request->input('business_category'),
+            'business_information' => $request->input('business_information'),
+            'business_operating_hour' => $request->input('business_operating_hour'),
+            // Add more fields as needed
+        ]);
+
+        // Pass the updated application data to the view
+        return view('manageKiosk.manageApplication.EditKiosk', ['application' => $application])
+            ->with('success', 'Kiosk information updated successfully.');
+    }
+    
+    
+
+
+
+
+
+    public function rejectApplication(){
         return view('manageKiosk.manageApplication.ApplyKiosk');
     }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

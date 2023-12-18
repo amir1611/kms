@@ -36,9 +36,6 @@ Route::prefix('pupuk-admin')->name('pupuk.')->group(function () {
         Route::get('/kiosk-participant', [KioskController::class, 'viewKioskParticipant'])->name('viewKioskParticipant');
         Route::get('/pupuk/deleteKiosk/{id}', [KioskController::class, 'deleteKiosk'])->name('deleteKiosk');
         Route::get('/pupuk/updateApplicationStatus/{id}', [KioskController::class, 'updateApplicationStatus'])->name('updateApplicationStatus');
-
-
-
     });
 });
 
@@ -57,6 +54,8 @@ Route::prefix('user')->name('user.')->group(function () {
         //manageKiosk 
         Route::get('/applyKiosk', [KioskController::class, 'showApplyKioskForm'])->name('applyKiosk');
         Route::post('/applyKiosk', [KioskController::class, 'applyKiosk'])->name('submitApplyKiosk');
+        Route::get('/applyForReject', [KioskController::class, 'rejectApplication'])->name('rejectApplication');
+        Route::put('/update-kiosk/{id}', [KioskController::class, 'updateKiosk'])->name('updateKiosk');
 
 
         //manageReport

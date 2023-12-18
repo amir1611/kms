@@ -14,8 +14,6 @@ class Kiosk extends Model
 
     protected $primaryKey = 'kiosk_id';
 
-    // Remove $incrementing property to make the primary key auto-incrementing
-    // public $incrementing = false;
 
     protected $fillable = [
         'application_id',
