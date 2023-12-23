@@ -17,10 +17,12 @@ To setup this project
 ```bash
     1. Make sure the current directory is '/<project-name>'.
     2. Type in 'composer install' to install the packages and dependencies.
-    3. Click on Database in Laragon.
-    4. Create a new database with the name of your project. Eg: <project_name>
-    5. Type in 'code .' to open the current directory in VS Code.
-    6. In the explorer tab on the left, copy the '.env.example' file and paste it in the same directory.
+    3. Type in 'npm install' to install the packages and dependencies.
+    4. Type in 'npm run build' to runs the build field from the package.json scripts field.
+    5. Click on Database in Laragon/phpMyAdmin.
+    6. Create a new database with the name of your project. Eg: <project_name>
+    7. Type in 'code .' to open the current directory in VS Code.
+    8. In the explorer tab on the left, copy the '.env.example' file and paste it in the same directory.
 ```
 
 To publish this project
@@ -32,12 +34,10 @@ To publish this project
     5. Finally, type in 'php artisan migrate:fresh --seed' to migrate the database tables for the project.
 ```
 
-## Deploy
-Deploy with npm
+## Run
 ```bash
-  1. npm install 
-  2. npm run dev
-  3. php artisan serve
+  1. Type in 'cd <project-name>' to enter the project's directory.
+  2. php artisan serve
 ```
     
 ## Download
