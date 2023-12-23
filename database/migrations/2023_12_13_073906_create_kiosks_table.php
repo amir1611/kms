@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('kiosks', function (Blueprint $table) {
-            $table->id(); 
+            $table->id()->onDelete('cascade'); 
             $table->string('application_id');
             $table->foreignId('user_id')->constrained('users');
             $table->string('payment_id')->nullable(); 

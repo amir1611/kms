@@ -36,6 +36,7 @@ Route::prefix('pupuk-admin')->name('pupuk.')->group(function () {
         Route::get('/kiosk-participant', [KioskController::class, 'viewKioskParticipant'])->name('viewKioskParticipant');
         Route::get('/pupuk/deleteKiosk/{id}', [KioskController::class, 'deleteKiosk'])->name('deleteKiosk');
         Route::get('/pupuk/updateApplicationStatus/{id}', [KioskController::class, 'updateApplicationStatus'])->name('updateApplicationStatus');
+
     });
 });
 

@@ -119,6 +119,32 @@ class UserSeeder extends Seeder
 				'password' => bcrypt('1234'),
 			],
 
+			//Kiosk Participant - 5
+			[
+				'ic' => '074565456783',
+				'name' => 'Alia',
+				'gender' => 'female',
+				// 'staff_id' => '',
+				'email' => 'alia@gmail.com',
+				'contact' => '0178865786',
+				'email_verified_at' => '2023-06-09 06:16:17',
+				'role' => 0,
+				'password' => bcrypt('1234'),
+			],
+
+			//Kiosk Participant - 6
+			[
+				'ic' => '093456453245',
+				'name' => 'Amira',
+				'gender' => 'female',
+				// 'staff_id' => '',
+				'email' => 'amira@gmail.com',
+				'contact' => '0132345676',
+				'email_verified_at' => '2023-06-09 06:16:17',
+				'role' => 0,
+				'password' => bcrypt('1234'),
+			],
+
 		];
 
 
