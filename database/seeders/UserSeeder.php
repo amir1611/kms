@@ -82,7 +82,7 @@ class UserSeeder extends Seeder
 
 			//Kiosk Participant - 2
 			[
-				'ic' => '04023245654567',
+				'ic' => '045467876546',
 				'name' => 'Chua',
 				'gender' => 'male',
 				// 'staff_id' => '',
