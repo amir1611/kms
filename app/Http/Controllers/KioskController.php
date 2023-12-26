@@ -50,6 +50,13 @@ class KioskController extends Controller
         }
     }
 
+
+
+
+
+
+
+
     public function updateKiosk(Request $request, $id)
     {
         // Validate and update the application data
@@ -78,23 +85,17 @@ class KioskController extends Controller
         return view('manageKiosk.manageApplication.EditKiosk', ['application' => $application])
             ->with('success', 'Kiosk information updated successfully.');
     }
-    
-    
 
 
 
 
 
-    public function rejectApplication(){
+
+
+    public function rejectApplication()
+    {
         return view('manageKiosk.manageApplication.ApplyKiosk');
     }
-
-
-
-
-
-
-
 
 
 
@@ -147,6 +148,16 @@ class KioskController extends Controller
             ]);
         }
     }
+
+
+
+
+
+
+
+
+
+
 
     public function viewKioskApplication(Request $request)
     {
@@ -205,6 +216,10 @@ class KioskController extends Controller
 
 
 
+
+
+
+
     public function viewApplicationApproval($id)
     {
         // Fetch application details along with user details
@@ -214,8 +229,26 @@ class KioskController extends Controller
         return view('manageKiosk.manageApplication.KioskApproval', ['application' => $application, 'user' => $user]);
     }
 
+
+
+
+
+
+
+
+
     public function processApplication(Request $request, $id)
     {
+        $maxActiveApplications = 5; // Set the maximum number of active applications
+
+        // Find the existing active applications
+        $activeApplicationsCount = Applications::where('application_status', 'Active')->count();
+
+        // Validate the number of active applications
+        if ($request->input('action') === 'approve' && $activeApplicationsCount >= $maxActiveApplications) {
+            return redirect()->route('pupuk.viewKioskApplication')->with('error', 'We have reached the maximum number of kiosk participants.');
+        }
+
         $application = Applications::findOrFail($id);
 
         // Validate the request
@@ -244,6 +277,12 @@ class KioskController extends Controller
         return redirect()->route('pupuk.viewKioskApplication', ['id' => $id])->with('success', 'Application processed successfully.');
     }
 
+
+
+
+
+
+
     public function viewApplication($id)
     {
         // Fetch application details along with user details
@@ -253,11 +292,18 @@ class KioskController extends Controller
         return view('manageKiosk.manageParticipant.ViewActiveParticipant', ['application' => $application, 'user' => $user]);
     }
 
+
+
+
+
+
+
+
     public function viewKioskParticipant(Request $request)
     {
         // Fetch kiosk applications data from the applications table and related user and kiosk data
-        $query = applications::join('users', 'applications.user_id', '=', 'users.id')
-            ->leftJoin('kiosks', 'users.id', '=', 'kiosks.user_id')
+        $query = Kiosk::join('applications', 'kiosks.application_id', '=', 'applications.application_id')
+            ->join('users', 'applications.user_id', '=', 'users.id')
             ->select(
                 'applications.application_id',
                 'users.name',
@@ -292,6 +338,9 @@ class KioskController extends Controller
     }
 
 
+
+
+
     public function deleteKiosk($id)
     {
         // Find the kiosk by id and delete it
@@ -305,6 +354,8 @@ class KioskController extends Controller
     }
 
 
+
+    
     public function updateApplicationStatus($id)
     {
         // Find the application by id and update its status to 'Inactive'
