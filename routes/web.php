@@ -36,6 +36,17 @@ Route::prefix('pupuk-admin')->name('pupuk.')->group(function () {
         Route::get('/kiosk-participant', [KioskController::class, 'viewKioskParticipant'])->name('viewKioskParticipant');
         Route::get('/pupuk/deleteKiosk/{id}', [KioskController::class, 'deleteKiosk'])->name('deleteKiosk');
         Route::get('/pupuk/updateApplicationStatus/{id}', [KioskController::class, 'updateApplicationStatus'])->name('updateApplicationStatus');
+
+
+        //manageReport
+        Route::get('/viewMonthlyReportList', [ReportController::class, 'viewAllReport'])->name('reportList');
+        Route::get('/uploadMonthlyReport', [ReportController::class, 'showKioskListById'])->name('uploadReport');
+        Route::post('/uploadReportData', [ReportController::class, 'uploadReportData'])->name('uploadReportData');
+        Route::get('/viewMonthReport/{id}', [ReportController::class, 'viewReport'])->name('viewReport');
+        Route::get('/updateMonthReport/{id}', [ReportController::class, 'displayEditKioskParticipantReport'])->name('updateReport');
+        Route::post('/updateMonthReport/{id}', [ReportController::class, 'editKioskParticipantReport'])->name('editReport');
+        Route::get('/filter/{filterData}', [ReportController::class, 'filterTable'])->name('filterSec');
+        Route::get('/search', [ReportController::class, 'searchReport'])->name('searchReport');
     });
 });
 
@@ -59,9 +70,16 @@ Route::prefix('user')->name('user.')->group(function () {
 
 
         //manageReport
-        Route::get('/viewMonthlyReportList', [ReportController::class, 'viewReportsList'])->name('reportList');
+        Route::get('/viewMonthlyReportList', [ReportController::class, 'viewAllKioskParticipantReport'])->name('reportList');
         Route::get('/uploadMonthlyReport', [ReportController::class, 'showKioskListById'])->name('uploadReport');
         Route::post('/uploadReportData', [ReportController::class, 'uploadReportData'])->name('uploadReportData');
+        Route::get('/viewMonthReport/{id}', [ReportController::class, 'viewReport'])->name('viewReport');
+        Route::get('/updateMonthReport/{id}', [ReportController::class, 'displayEditKioskParticipantReport'])->name('updateReport');
+        Route::post('/updateMonthReport/{id}', [ReportController::class, 'editKioskParticipantReport'])->name('editReport');
+        Route::get('/deleteMonthReport/{id}', [ReportController::class, 'deleteKioskParticipantReport'])->name('deleteReport');
+        Route::get('/filter/{filterData}', [ReportController::class, 'filterTable'])->name('filterSec');
+        Route::get('/search', [ReportController::class, 'searchReport'])->name('searchReport');
+
     });
 });
 
