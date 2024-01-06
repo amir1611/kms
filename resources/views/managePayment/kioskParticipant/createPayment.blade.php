@@ -57,7 +57,7 @@
 
                 <div class="d-flex align-items-center">
                     <div class="col-3">
-                        <p><b>Payment Amount</b></p>
+                        <p><b>Payment Amount (RM)</b></p>
                     </div>
 
                     <div class="w-100">
