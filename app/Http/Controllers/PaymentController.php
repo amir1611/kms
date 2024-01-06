@@ -9,8 +9,6 @@ class PaymentController extends Controller
     //To display Payment form and and redirect to relevant view page
     public function showCreatePaymentForm()
     {
-        $user = Auth::user();
-
         return view('createPayment');
 
     }
