@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KioskController;
+use App\Http\Controllers\PaymentController;
 
 
 
@@ -67,6 +68,13 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::post('/applyKiosk', [KioskController::class, 'applyKiosk'])->name('submitApplyKiosk');
         Route::get('/applyForReject', [KioskController::class, 'rejectApplication'])->name('rejectApplication');
         Route::put('/update-kiosk/{id}', [KioskController::class, 'updateKiosk'])->name('updateKiosk');
+
+        //managePayment
+        Route::get('/createPayment', [PaymentController::class, 'showCreatePaymentForm'])->name('createPayment');
+        Route::post('/createPayment', [PaymentController::class, 'createPayment'])->name('submitPayment');
+        Route::get('/paymentApproval', [PaymentController::class, 'approvePayment'])->name('approvePayment');
+        Route::put('/edit-payment/{id}', [PaymentController::class, 'editPayment'])->name('editPayment');
+        Route::get('/paymentHistory', [PaymentController::class, 'showPaymentHistory'])->name('paymentHistory');
 
 
         //manageReport
