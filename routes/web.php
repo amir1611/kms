@@ -71,6 +71,7 @@ Route::prefix('user')->name('user.')->group(function () {
 
         //managePayment
         Route::get('/createPayment', [PaymentController::class, 'showCreatePaymentForm'])->name('createPayment');
+        Route::post('/createPayment', [PaymentController::class, 'createPayment'])->name('submitPayment');
 
 
         //manageReport
