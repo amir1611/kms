@@ -9,7 +9,7 @@ class PaymentController extends Controller
     //To display Payment form and and redirect to relevant view page
     public function showCreatePaymentForm()
     {
-        return view('createPayment');
+        return views('createPayment');
 
     }
 
