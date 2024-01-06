@@ -16,7 +16,7 @@ class KioskController extends Controller
 {
 
 
-
+    //To display Kiosk Application form and and redirect to relevant view page
     public function showApplyKioskForm()
     {
         $user = Auth::user();
@@ -56,7 +56,7 @@ class KioskController extends Controller
 
 
 
-
+    //To update kiosk information
     public function updateKiosk(Request $request, $id)
     {
         // Validate and update the application data
@@ -66,7 +66,7 @@ class KioskController extends Controller
             'business_category' => 'required|string',
             'business_information' => 'required|string',
             'business_operating_hour' => 'required|string',
-            // Add more validation rules as needed
+
         ]);
 
         // Update application data
@@ -78,7 +78,7 @@ class KioskController extends Controller
             'business_category' => $request->input('business_category'),
             'business_information' => $request->input('business_information'),
             'business_operating_hour' => $request->input('business_operating_hour'),
-            // Add more fields as needed
+
         ]);
 
         // Pass the updated application data to the view
@@ -91,7 +91,7 @@ class KioskController extends Controller
 
 
 
-
+    //To reject Kiosk Application
     public function rejectApplication()
     {
         return view('manageKiosk.manageApplication.ApplyKiosk');
@@ -103,7 +103,7 @@ class KioskController extends Controller
 
 
 
-
+    //To apply for kiosk 
     public function applyKiosk(Request $request)
     {
         try {
@@ -119,9 +119,8 @@ class KioskController extends Controller
                 'business_proposal_pdf' => 'required|mimes:pdf|max:2048',
             ]);
 
-            // Handle file storage using the store method
-            $ssmPdfPath = $request->file('ssm_pdf')->store('pdfs');
-            $businessProposalPdfPath = $request->file('business_proposal_pdf')->store('pdfs');
+            $ssmPdfPath = $request->file('ssm_pdf')->storeAs('applications', 'ssm_' . time() . '.pdf', 'public');
+            $businessProposalPdfPath = $request->file('business_proposal_pdf')->storeAs('applications', 'proposal_' . time() . '.pdf', 'public');
 
             // Create a new application record
             $application = new applications([
@@ -204,7 +203,7 @@ class KioskController extends Controller
         }
 
         // Execute the query with pagination
-        $kioskApplications = $query->paginate(10); // Adjust the number as per your requirement
+        $kioskApplications = $query->paginate(10);
 
         // Pass the data to the view along with the current sorting option and search query
         return view('manageKiosk.manageApplication.KioskApplication', [
@@ -328,7 +327,7 @@ class KioskController extends Controller
         }
 
         // Execute the query with pagination
-        $kioskApplications = $query->paginate(10); // Adjust the number as per your requirement
+        $kioskApplications = $query->paginate(10);
 
         // Pass the data to the view along with the current search query
         return view('manageKiosk.manageParticipant.KioskParticipant', [
@@ -355,7 +354,7 @@ class KioskController extends Controller
 
 
 
-    
+
     public function updateApplicationStatus($id)
     {
         // Find the application by id and update its status to 'Inactive'

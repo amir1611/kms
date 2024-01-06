@@ -28,8 +28,25 @@
                         <p><strong>Business Information:</strong> {{ $application->business_information }}</p>
                         <p><strong>Business Operating Hour:</strong> {{ $application->business_operating_hour }}</p>
                         <p><strong>Business Start Date:</strong> {{ $application->business_start_date }}</p>
-                        <p><strong>SSM PDF:</strong> {{ $application->ssm_pdf }}</p>
-                        <p><strong>Business Proposal PDF:</strong> {{ $application->business_proposal_pdf }}</p>
+
+                        <p>
+                            <strong>SSM PDF:</strong>
+                            <a href="{{ asset('storage/applications/' . basename($application->ssm_pdf)) }}"
+                                target="_blank">
+                                <p>{{ basename($application->ssm_pdf) }}</p>
+                            </a>
+                        </p>
+
+
+                        <p>
+                            <strong>Business Proposal PDF:</strong>
+                            <a href="{{ asset('storage/applications/' . basename($application->business_proposal_pdf)) }}"
+                                target="_blank">
+                                <p> {{ basename($application->business_proposal_pdf) }}</p>
+                            </a>
+                        </p>
+
+
                     </div>
                 </div>
             </div>
