@@ -72,9 +72,6 @@ Route::prefix('user')->name('user.')->group(function () {
         //managePayment
         Route::get('/createPayment', [PaymentController::class, 'showCreatePaymentForm'])->name('createPayment');
         Route::post('/createPayment', [PaymentController::class, 'createPayment'])->name('submitPayment');
-        Route::get('/paymentApproval', [PaymentController::class, 'approvePayment'])->name('approvePayment');
-        Route::put('/edit-payment/{id}', [PaymentController::class, 'editPayment'])->name('editPayment');
-        Route::get('/paymentHistory', [PaymentController::class, 'showPaymentHistory'])->name('paymentHistory');
 
 
         //manageReport
