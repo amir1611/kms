@@ -89,10 +89,10 @@ use Illuminate\Support\Str;
                                 <option value="Reject" @if(request('filterData')=='Reject' ) selected @endif>Reject</option>
                             </li>
                             <li>
-                                <option value="Asc" @if(request('filterData')=='Asc' ) selected @endif>New to old</option>
+                                <option value="Asc" @if(request('filterData')=='Asc' ) selected @endif>Old to new</option>
                             </li>
                             <li>
-                                <option value="Desc" @if(request('filterData')=='Desc') selected @endif>Old to new</option>
+                                <option value="Desc" @if(request('filterData')=='Desc') selected @endif>New to old</option>
                             </li>
                         </ul>
                     </select>
@@ -129,7 +129,7 @@ use Illuminate\Support\Str;
             @foreach($reports as $report)
             <tr>
                 <td>
-                    <a href="{{route('pupuk.updateReport', ['id' => $report->id])}}">test</a>
+                    <a href="{{route('pupuk.updateReport', ['id' => $report->id])}}">{{$report->name}}</a>
                 </td>
                 <td>
                     <div class="d-flex align-items-center">
@@ -205,6 +205,8 @@ use Illuminate\Support\Str;
     // Extract kiosk IDs and revenue values
     var kioskIDs = Object.keys(revenuesByKiosk);
     var revenueValues = Object.values(revenuesByKiosk);
+
+    console.log(revenueValues);
 
     // Chart configuration
     var ctx = document.getElementById('revenueChart').getContext('2d');

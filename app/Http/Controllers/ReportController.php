@@ -9,6 +9,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Report;
 use App\Models\Kiosk;
 use Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 //  @foreach($kiosks as $kiosk)
 // <option value="{{ $kiosk->id }}">1</option>
@@ -66,11 +68,11 @@ class ReportController extends Controller
 
     public function viewReport($id)
     {
-
         $report = Report::find($id);
         return view('manageReport.kioskParticipant.viewMonthlyReport', [
             'report' => $report
         ]);
+        // $this->generateMonthlySaleReport('user');
     }
 
     public function showKioskListById()
@@ -93,8 +95,7 @@ class ReportController extends Controller
                 'reports.*',
             )->paginate(4);
 
-        $revenues = $reports->pluck('report_monthly_revenue')->toArray();
-
+        $revenues = $this->generateMonthlySaleReport('user');
 
         return view('manageReport.kioskParticipant.viewMonthlyReportList', compact('reports', 'revenues'));
     }
@@ -265,32 +266,40 @@ class ReportController extends Controller
         } else if ($userRole == 'pupuk-admin') {
 
             if ($filterData == 'All') {
-                $reports = Report::paginate(5);
+                $reports = Report::join('kiosks', 'kiosks.id', '=', 'reports.kiosk_id')
+                    ->join('users', 'users.id', '=', 'kiosks.user_id')
+                    ->select('reports.*', 'users.name')
+                    ->paginate(4);
             } elseif ($filterData == 'Under-Review') {
-                $reports = Report::where('reports.report_status', 'Under Review')
-                    ->select(
-                        'reports.*',
-                    )->paginate(5);
+                $reports = Report::join('kiosks', 'kiosks.id', '=', 'reports.kiosk_id')
+                    ->join('users', 'users.id', '=', 'kiosks.user_id')
+                    ->where('reports.report_status', 'Under Review')
+                    ->select('reports.*', 'users.name')
+                    ->paginate(5);
             } elseif ($filterData == 'Approve') {
-                $reports = Report::where('reports.report_status', 'Approve')
-                    ->select(
-                        'reports.*',
-                    )->paginate(5);
+                $reports = Report::join('kiosks', 'kiosks.id', '=', 'reports.kiosk_id')
+                    ->join('users', 'users.id', '=', 'kiosks.user_id')
+                    ->where('reports.report_status', 'Approve')
+                    ->select('reports.*', 'users.name')
+                    ->paginate(5);
             } elseif ($filterData == 'Reject') {
-                $reports = Report::where('reports.report_status', 'Reject')
-                    ->select(
-                        'reports.*',
-                    )->paginate(5);
+                $reports = Report::join('kiosks', 'kiosks.id', '=', 'reports.kiosk_id')
+                    ->join('users', 'users.id', '=', 'kiosks.user_id')
+                    ->where('reports.report_status', 'Reject')
+                    ->select('reports.*', 'users.name')
+                    ->paginate(5);
             } elseif ($filterData == 'Asc') {
-                $reports = Report::orderBy('reports.report_month', 'asc')
-                    ->select(
-                        'reports.*',
-                    )->paginate(5);
+                $reports = Report::join('kiosks', 'kiosks.id', '=', 'reports.kiosk_id')
+                    ->join('users', 'users.id', '=', 'kiosks.user_id')
+                    ->orderBy('reports.report_month', 'asc')
+                    ->select('reports.*', 'users.name')
+                    ->paginate(5);
             } elseif ($filterData == 'Desc') {
-                $reports = Report::orderBy('reports.report_month', 'desc')
-                    ->select(
-                        'reports.*',
-                    )->paginate(5);
+                $reports = Report::join('kiosks', 'kiosks.id', '=', 'reports.kiosk_id')
+                    ->join('users', 'users.id', '=', 'kiosks.user_id')
+                    ->orderBy('reports.report_month', 'desc')
+                    ->select('reports.*', 'users.name')
+                    ->paginate(5);
             }
 
             $revenues = $this->generateMonthlySaleReport($userRole);
@@ -315,10 +324,16 @@ class ReportController extends Controller
 
             return view('manageReport.kioskParticipant.viewMonthlyReportList', compact('reports', 'revenues'));
         } else if ($userRole == 'pupuk-admin') {
-            $reports = Report::where('reports.kiosk_id', 'LIKE', '%' . $searchTerm . '%')
-                ->select(
-                    'reports.*',
-                )->paginate(5);
+            $reports = Report::join('kiosks', 'kiosks.id', '=', 'reports.kiosk_id')
+                ->join('users', 'users.id', '=', 'kiosks.user_id')
+                ->where(function ($query) use ($searchTerm) {
+                    $query->where('reports.kiosk_id', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('users.name', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('reports.report_month', 'LIKE', '%' . $searchTerm . '%');
+                })
+                ->select('reports.*', 'users.name')
+                ->paginate(4);
+
 
             $revenues = $this->generateMonthlySaleReport($userRole);
 
@@ -334,30 +349,45 @@ class ReportController extends Controller
 
             // Your existing logic for filtering reports
 
-            $reports = Report::join('kiosks', 'kiosks.id', '=', 'reports.kiosk_id')
-                ->where('kiosks.user_id', $userId)
-                ->select('reports.*')
-                ->get();
+            $report = Report::join('kiosks', 'kiosks.id', '=', 'reports.kiosk_id')
+             ->where('kiosks.user_id', $userId)
+            ->orderBy('report_month')
+            ->select(DB::raw('DATE_FORMAT(reports.report_month, "%Y-%m") as report_month'), 'report_monthly_revenue')
+            ->get();
 
-            $aggregatedData = [];
+            // $formattedData = $report->map(function ($entry) {
+            //     $entry->report_month = Carbon::parse($entry->report_month)->format('F'); // 'F' means full month name
+            //     return $entry;
+            // });
 
-            foreach ($reports as $report) {
-                $kioskId = $report->kiosk_id;
-                $month = $report->report_month;
-                $revenue = $report->report_monthly_revenue;
+     
 
-                if (!isset($aggregatedData[$kioskId])) {
-                    $aggregatedData[$kioskId] = [];
-                }
 
-                if (!isset($aggregatedData[$kioskId][$month])) {
-                    $aggregatedData[$kioskId][$month] = 0;
-                }
 
-                $aggregatedData[$kioskId][$month] += $revenue;
-            }
+            // $reports = Report::join('kiosks', 'kiosks.id', '=', 'reports.kiosk_id')
+            //     ->where('kiosks.user_id', $userId)
+            //     ->select('reports.*')
+            //     ->get();
 
-            $revenues= $aggregatedData;
+           // $aggregatedData = [];
+
+            // foreach ($reports as $report) {
+            //     $kioskId = $report->kiosk_id;
+            //     $month = $report->report_month;
+            //     $revenue = $report->report_monthly_revenue;
+
+            //     if (!isset($aggregatedData[$kioskId])) {
+            //         $aggregatedData[$kioskId] = [];
+            //     }
+
+            //     if (!isset($aggregatedData[$kioskId][$month])) {
+            //         $aggregatedData[$kioskId][$month] = 0;
+            //     }
+
+            //     $aggregatedData[$kioskId][$month] += $revenue;
+            // }
+
+            $revenues = $report;
         } else if ($userRole == 'pupuk-admin') {
             $reports = Report::where('reports.report_status', 'Approve')->get();
 
@@ -367,18 +397,24 @@ class ReportController extends Controller
             });
         }
 
-
         return $revenues;
     }
 
     public function viewAllReport()
     {
 
-        $reports = Report::paginate(4);
+        //   $reports = Report::paginate(4);
+        $reports = Report::join('kiosks', 'kiosks.id', '=', 'reports.kiosk_id')
+            ->join('users', 'users.id', '=', 'kiosks.user_id')
+            ->select(
+                'reports.*',
+                'users.name'
+            )->paginate(4);
 
         $userRole = auth()->user()->role;
 
         $revenues = $this->generateMonthlySaleReport($userRole);
+
 
         return view('manageReport.pupukAdmin.viewAllMonthlyReport', compact('reports', 'revenues'));
     }
