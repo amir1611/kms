@@ -65,7 +65,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('user.createPayment') }}">
+                <a class="nav-link" href="{{ route('user.viewPaymentHistory') }}">
                     <i class="bi bi-shop-window"></i>
                     <span>{{ __('Manage Payment') }}</span>
                 </a>

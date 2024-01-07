@@ -18,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
 	 * @var string
 	 */
 	public const HOME = '/';
-	public const USER = '/user/profile';
+	public const USER = '/user';
 	public const PUPUKADMIN = '/pupuk-admin';
 	public const ADMIN = '/admin';
 	public const FKTECHNICAL = '/fk-technical';

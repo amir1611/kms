@@ -69,9 +69,15 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/applyForReject', [KioskController::class, 'rejectApplication'])->name('rejectApplication');
         Route::put('/update-kiosk/{id}', [KioskController::class, 'updateKiosk'])->name('updateKiosk');
 
-        //managePayment
+        // managePayment
+        Route::get('/viewPaymentHistory', [PaymentController::class, 'viewPaymentHistory'])->name('viewPaymentHistory');
         Route::get('/createPayment', [PaymentController::class, 'showCreatePaymentForm'])->name('createPayment');
-        Route::post('/createPayment', [PaymentController::class, 'createPayment'])->name('submitPayment');
+        Route::post('/createPayment', [PaymentController::class, 'createPayment'])->name('submitCreatePayment');
+        Route::post('/editPayment/{id}', [PaymentController::class, 'editPayment'])->name('editPayment');
+        Route::get('/deletePayment/{id}', [PaymentController::class, 'deletePayment'])->name('deletePayment');
+        Route::get('/viewPaymentDetails', [PaymentController::class, 'viewPaymentDetails'])->name('viewPaymentDetails');
+        Route::get('/filter/{filterData}', [PaymentController::class, 'filterTable'])->name('filterSec');
+        Route::get('/search', [PaymentController::class, 'searchPayment'])->name('searchPayment');
 
 
         //manageReport
