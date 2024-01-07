@@ -12,16 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id();
+            $table->id('payment_id');
             $table->foreignId('kiosk_id')->constrained('kiosks');
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('application_id')->constrained('applications');
             $table->string('payment_type');
             $table->double('payment_amount');
             $table->binary('payment_receipt');
             $table->string('payment_status');
-            $table->dateTime('payment_date');
-            $table->text('payment_comment');
+            $table->date('payment_date');
+            $table->text('payment_comment')->nullable();;
             $table->timestamps();
         });
     }

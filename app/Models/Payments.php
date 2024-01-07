@@ -15,15 +15,13 @@ class Payments extends Model
     protected $primaryKey = 'payment_id';
 
     protected $fillable = [
-        'kiosk_id',
         'user_id',
-        'application_id',
+        'kiosk_id',
         'payment_type',
         'payment_amount',
         'payment_receipt',
         'payment_status',
         'payment_date',
-        'payment_comment',
     ];
 
     // Define the relationship with the User model

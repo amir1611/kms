@@ -31,10 +31,23 @@
 @section('main-content')
     <div class="container2" style="background-color: white; border-radius: 30px; margin-left: 100px; margin-right: 100px;">
 
-        <form action="{{ route('user.submitPayment') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('user.submitCreatePayment') }}" method="POST" enctype="multipart/form-data">
             <div class="mt-4 profile-header pr-5 pl-5 pt-3">
                 <div class="text-center">
                     <h4 class="font-weight-bold mx-auto mt-2 profile-title mb-4">Payment</h4>
+                </div>
+
+                <hr class="border-0">
+
+                <div class="d-flex align-items-center">
+                    <div class="col-3">
+                        <p><b>Kiosk ID</b></p>
+                    </div>
+
+                    <div class="w-100">
+                        <input type="number" class="form-control" id="kiosk_id" name="kiosk_id"                        
+                        placeholder="Enter your Kiosk ID required">
+                    </div>
                 </div>
 
                 <hr class="border-0">
@@ -61,7 +74,7 @@
                     </div>
 
                     <div class="w-100">
-                        <input type="text" class="form-control" id="payment_amount" name="payment_amount"                            
+                        <input type="number" class="form-control" id="payment_amount" name="payment_amount"                            
                         placeholder="Enter payment amount" required>
                     </div>
                 </div>
@@ -90,7 +103,7 @@
                     <div class="mb-3">
                         <p style="font-weight: bold; color: black;">Payment Receipt<span style="font-weight: bold; color: red;">*</span>
                             <span style="font-weight: bold; color: black;">(.pdf only)</span></p>
-                        <input class="form-control" type="file" id="receipt_pdf" name="receipt_pdf" required>
+                        <input class="form-control" type="file" id="payment_receipt" name="payment_receipt" required>
                     </div>
                 </div>
                 <hr class="border-0">
@@ -111,4 +124,5 @@
         });
     });
     </script>
+    
 @endsection
