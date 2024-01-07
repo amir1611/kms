@@ -92,7 +92,7 @@ use Illuminate\Support\Str;
                                 <option value="Asc" @if(request('filterData')=='Asc' ) selected @endif>New to old</option>
                             </li>
                             <li>
-                                <option value="Desc" @if(request('filterData')=='Desc' ) selected @endif>Old to new</option>
+                                <option value="Desc" @if(request('filterData')=='Desc') selected @endif>Old to new</option>
                             </li>
                         </ul>
                     </select>
