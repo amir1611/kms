@@ -40,7 +40,7 @@ use Illuminate\Support\Str;
         <h4 class="font-weight-bold mx-auto  profile-title">Monthly Report List</h4>
     </div>
 
-    <canvas id="revenueChart" width="400" height="200"></canvas>
+    <canvas id="revenueChart" width="400" height="100"></canvas>
 </div>
 
 
@@ -184,7 +184,7 @@ use Illuminate\Support\Str;
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <a href="{{route('user.deleteReport', ['id' => $report->id])}}"><button type="button" class="btn btn-danger"  onclick="checkStatus('{{ $report->report_status }}')">Delete</button></a>
+                            <a href="{{route('user.deleteReport', ['id' => $report->id])}}"><button type="button" class="btn btn-danger" onclick="checkStatus('{{ $report->report_status }}')">Delete</button></a>
                         </div>
                     </div>
                 </div>
@@ -222,46 +222,30 @@ use Illuminate\Support\Str;
 </div>
 
 <script>
-    // Get the aggregated revenue data from the controller
-    var aggregatedRevenues = {!! json_encode($revenues) !!};
-
-    // Chart configuration
     var ctx = document.getElementById('revenueChart').getContext('2d');
-    var datasets = [];
-
-    for (var kioskId in aggregatedRevenues) {
-        var data = Object.values(aggregatedRevenues[kioskId]);
-        var dataset = {
-            label: 'Kiosk ' + kioskId,
-            data: data,
-            borderColor: 'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 1)',
-            borderWidth: 2, // Set the line width
-            pointRadius: 5, // Set the point radius
-            fill: false,
-        };
-
-        datasets.push(dataset);
-    }
-
-    var myChart = new Chart(ctx, {
+    var chart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: Object.keys(aggregatedRevenues[Object.keys(aggregatedRevenues)[0]]), // Use months from the first kiosk
-            datasets: datasets,
+            labels: @json($revenues->pluck('report_month')->map(fn($date) => $date->format('M'))->toArray()), // Format month names
+            datasets: [{
+                label: 'Monthly Revenue',
+                data: @json($revenues->pluck('report_monthly_revenue')->toArray()),
+                borderColor: 'blue',
+                fill: false
+            }]
         },
         options: {
             scales: {
-                x: {
-                    type: 'linear',
-                    position: 'bottom',
-                },
                 y: {
-                    beginAtZero: true,
+                    beginAtZero: true
                 }
             }
         }
     });
 </script>
+
+
+
 
 
 
