@@ -54,7 +54,7 @@ class PaymentController extends Controller
                 'payment_amount' => $request->input('payment_amount'),
                 'payment_date' => $request->input('payment_date'),
                 'payment_receipt' => $payment_receipt,
-                'payment_status' => '',
+                'payment_status' => 'New',
                 'payment_comment' => '',
              ]);
 
@@ -128,6 +128,16 @@ class PaymentController extends Controller
         ]);
     }
 
+    public function showEditPaymentForm($id)
+{
+    // Fetch the payment data based on the ID
+    $payment = Payments::findOrFail($id);
+
+    // Pass the payment data to the view
+    return view('managePayment.kioskParticipant.editPayment', ['payment' => $payment]);
+}
+
+
     //To update payment information
     public function editPayment(Request $request, $id)
     {
@@ -137,28 +147,135 @@ class PaymentController extends Controller
             'payment_type' => 'required|string',
             'payment_amount' => 'required|numeric',
             'payment_date' => 'required|date_format:Y-m-d',
-            'payment_receipt' => 'required|mimes:pdf|max:10240',
 
         ]);
 
-        $payment_receipt = $request->file('payment_receipt')->storeAs('payments', 'receipt_' . time() . '.pdf', 'public');
 
 
         // Update payment data
-        $application = Applications::findOrFail($id);
+        $payment = Payments::findOrFail($id);
 
-        $application->update([
-            'business_name' => $request->input('business_name'),
-            'business_role' => $request->input('business_role'),
-            'business_category' => $request->input('business_category'),
-            'business_information' => $request->input('business_information'),
-            'business_operating_hour' => $request->input('business_operating_hour'),
+        $payment->update([
+            'user_id' => Auth::id(),
+            'kiosk_id' => $request->input('kiosk_id'),
+            'payment_type' => $request->input('payment_type'),
+            'payment_amount' => $request->input('payment_amount'),
+            'payment_date' => $request->input('payment_date'),
 
         ]);
 
-        // Pass the updated application data to the view
-        return view('manageKiosk.manageApplication.EditKiosk', ['application' => $application])
-            ->with('success', 'Kiosk information updated successfully.');
+        // Pass the updated payment data to the view
+        return view('managePayment.kioskParticipant.editPayment', ['payment' => $payment])
+            ->with('success', 'Payment information updated successfully.');
+    }
+
+    public function viewPaymentDetails($id)
+    {
+    // Get the authenticated user's ID
+    $userId = auth()->user()->id;
+
+    // Fetch data based on user ID and payment ID
+    $data = Payments::where('user_id', $userId)
+        ->where('payment_id', $id)
+        ->first(); // Assuming you expect only one result
+
+    // Pass the data to the view
+    return view('managePayment.kioskParticipant.viewPaymentDetails', ['payment' => $data]);
+    }
+
+    public function deletePayment($id)
+    {
+        // Find the payment by id and delete it
+        Payments::find($id)->delete();
+
+
+        // Redirect back or wherever you want
+        return redirect()->route('user.viewPaymentHistory')->with('success', 'Payment deleted successfully.');
+    }
+
+    public function viewPaymentList(Request $request)
+    {
+        // Fetch payment data from the payments table and related user data
+        $query = Payments::join('kiosks', 'payments.kiosk_id', '=', 'kiosks.id')
+                    ->join('users', 'payments.user_id', '=', 'users.id')
+                    ->select(
+                        'payments.payment_id',
+                        'kiosks.id as kiosk_id',
+                        'payments.payment_type',
+                        'users.email',
+                        'users.contact',
+                        'payments.payment_status',
+    );
+
+
+        $sort = strtolower($request->input('sort', 'all'));
+
+        if ($sort !== 'all') {
+            switch ($sort) {
+                case 'approved':
+                    $query->where('payments.payment_status', 'Approved');
+                    break;
+                case 'pending':
+                    $query->where('payments.payment_status', 'Pending');
+                    break;
+                case 'rejected':
+                    $query->where('payments.payment_status', 'Rejected');
+                    break;
+                case 'new':
+                    $query->where('payments.payment_status', 'New');
+                    break;
+            }
+        }
+
+        // Search logic based on the search query
+        $searchQuery = $request->input('search');
+        if ($searchQuery) {
+            $query->where(function ($subquery) use ($searchQuery) {
+                $subquery->where('kiosks.kiosk_id', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('payments.payment_id', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('users.email', 'like', '%' . $searchQuery . '%')
+                    ->orWhere('users.ic', 'like', '%' . $searchQuery . '%');
+            });
+        }
+
+        // Execute the query with pagination
+        $kioskPayments = $query->paginate(10);
+
+        // Pass the data to the view along with the current sorting option and search query
+        return view('managePayment.fkBursary.viewPaymentList', [
+            'kioskPayments' => $kioskPayments,
+            'currentSort' => $sort,
+            'currentSearch' => $searchQuery,
+        ]);
+    }
+
+    public function processPayment(Request $request, $id)
+    {
+
+        $payment = Payments::findOrFail($id);
+
+        // Validate the request
+        $request->validate([
+            'payment_comment' => 'nullable|string',
+        ]);
+
+        // Update payment status and comment
+        $payment->update([
+            'payment_status' => ($request->input('action') === 'approve') ? 'Approved' : 'Rejected',
+            'payment_comment' => $request->input('payment_comment'),
+        ]);
+
+        return redirect()->route('bursary.viewPaymentList', ['id' => $id])->with('success', 'Payment processed successfully.');
+    }
+
+   // View payment details
+    public function viewPayment($id)
+    {
+    // Fetch payment details
+    $payment = Payments::findOrFail($id);
+    $user = $payment->user;
+
+    return view('managePayment.fkBursary.paymentApproval', ['payment' => $payment, 'user' => $user]);
     }
 
 }

@@ -71,11 +71,12 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/viewPaymentHistory', [PaymentController::class, 'viewPaymentHistory'])->name('viewPaymentHistory');
         Route::get('/createPayment', [PaymentController::class, 'showCreatePaymentForm'])->name('createPayment');
         Route::post('/createPayment', [PaymentController::class, 'createPayment'])->name('submitCreatePayment');
-        Route::post('/editPayment/{id}', [PaymentController::class, 'editPayment'])->name('editPayment');
-        Route::get('/deletePayment/{id}', [PaymentController::class, 'deletePayment'])->name('deletePayment');
-        Route::get('/viewPaymentDetails', [PaymentController::class, 'viewPaymentDetails'])->name('viewPaymentDetails');
+        Route::get('/viewPaymentDetails/{id}', [PaymentController::class, 'viewPaymentDetails']);
         Route::get('/filter/{filterData}', [PaymentController::class, 'filterTable'])->name('filterSec');
         Route::get('/search', [PaymentController::class, 'searchPayment'])->name('searchPayment');
+        Route::get('/deletePayment/{id}', [PaymentController::class, 'deletePayment'])->name('deletePayment');
+        Route::get('edit-payment/{id}', [PaymentController::class, 'showEditPaymentForm'])->name('showEditPaymentForm');
+        Route::put('/user/edit-payment/{id}', [PaymentController::class, 'editPayment'])->name('editPayment');
 
 
         //manageReport
@@ -125,5 +126,12 @@ Route::prefix('fk-bursary')->name('bursary.')->group(function () {
         Route::get('/', [HomeController::class, 'indexFKBursary'])->name('home');
         Route::get('/register-staff', [UserController::class, 'registerStaff'])->name('register-staff');
         Route::post('/store-staff', [UserController::class, 'storeStaff'])->name('store-staff');
+
+        //managePayment
+        Route::get('/viewPaymentList', [PaymentController::class, 'viewPaymentList'])->name('viewPaymentList');
+        Route::get('/view-payment/{id}', [PaymentController::class, 'viewPayment'])->name('viewPayment');
+        Route::get('/payment-approval/{id}', [PaymentController::class, 'paymentApproval'])->name('paymentApproval');
+        Route::get('/view-payment/{id}', [PaymentController::class, 'viewPayment'])->name('viewPayment');
+        Route::post('/process-payment/{id}', [PaymentController::class, 'processPayment'])->name('processPayment');
     });
 });

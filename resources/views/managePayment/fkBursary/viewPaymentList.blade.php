@@ -1,5 +1,5 @@
 <style>
-    #addPaymentBTN {
+    #addMonthlyReportBTN {
         background: linear-gradient(90deg, rgba(138, 43, 226, 1) 0%, rgba(108, 77, 224, 1) 68%, rgba(1, 11, 253, 1) 100%);
         color: white;
         border-radius: 20px;
@@ -26,7 +26,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-@extends('layouts.userNav')
+@extends('layouts.fkBursaryNav')
 
 @section('main-content')
     @php
@@ -34,7 +34,7 @@
     @endphp
 
     <div class="row mt-4 profile-header">
-        <h4 class="font-weight-bold mx-auto mt-2 profile-title">Payment</h4>
+        <h4 class="font-weight-bold mx-auto mt-2 profile-title">PAYMENT</h4>
     </div>
 
     <div class="container2 p-1" style="background-color: white;border-radius: 30px;margin: 20px 100px;">
@@ -42,10 +42,10 @@
 
 
         <div class="d-flex justify-content-between align-items-center mt-3">
-            <h4 style="margin-left: 20px"><b>Payment History</b></h4>
+            <h4 style="margin-left: 20px"><b>Payment List</b></h4>
 
             <div class="d-flex">
-                <form class="d-flex input-group w-auto mr-4" method="get" action="{{ route('user.viewPaymentHistory') }}">
+                <form class="d-flex input-group w-auto mr-4" method="get" action="{{ route('bursary.viewPaymentList') }}">
 
                     <span class="input-group-text searchLogo bg-light" id="search-addon">
                         <i class="fas fa-search"></i>
@@ -64,25 +64,18 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item"
-                                href="{{ route('user.viewPaymentHistory', ['sort' => 'All']) }}">All</a></li>
+                                href="{{ route('bursary.viewPaymentList', ['sort' => 'All']) }}">All</a></li>
                         <li><a class="dropdown-item"
-                                href="{{ route('user.viewPaymentHistory', ['sort' => 'Pending']) }}">Pending</a></li>
+                                href="{{ route('bursary.viewPaymentList', ['sort' => 'New']) }}">New</a></li>
                         <li><a class="dropdown-item"
-                                href="{{ route('user.viewPaymentHistory', ['sort' => 'Approved']) }}">Approved</a></li>
+                                href="{{ route('bursary.viewPaymentList', ['sort' => 'Pending']) }}">Pending</a></li>
                         <li><a class="dropdown-item"
-                                href="{{ route('user.viewPaymentHistory', ['sort' => 'Rejected']) }}">Rejected</a></li>
+                                href="{{ route('bursary.viewPaymentList', ['sort' => 'Approved']) }}">Approved</a></li>
                         <li><a class="dropdown-item"
-                                href="{{ route('user.viewPaymentHistory', ['sort' => 'New']) }}">New</a></li>
+                                href="{{ route('bursary.viewPaymentList', ['sort' => 'Rejected']) }}">Rejected</a></li>
                     </ul>
-                    </ul>
-
-                    <a href="{{route('user.createPayment')}}"><button type="button" id="addPaymentBTN" class="btn pl-3 pr-3" style="margin-left: 15px" data-mdb-ripple-init><b>+</b></button></a>
-
                 </div>
             </div>
-
-           
-
         </div>
 
         <table class="table align-middle mb-0 bg-white text-center">
@@ -91,8 +84,10 @@
                     <th>Payment ID</th>
                     <th>Kiosk ID</th>
                     <th>Payment Type</th>
-                    <th>Date</th>
-                    <th>Payment Status</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Comment</th>
+                    <th>Status</th>
                     <th>View</th>
                 </tr>
             </thead>
@@ -102,7 +97,9 @@
                         <td>{{ $payment->payment_id }}</td>
                         <td>{{ $payment->kiosk_id }}</td>
                         <td>{{ $payment->payment_type }}</td>
-                        <td>{{ $payment->payment_date }}</td>
+                        <td>{{ $payment->email }}</td>
+                        <td>{{ $payment->contact }}</td>
+                        <td>{{ $payment->payment_comment}}</td>
                         <td>
                             @if ($payment->payment_status == 'Pending')
                                 <p
@@ -123,16 +120,22 @@
                                 <p
                                     style="border-radius: 4px; border: 1px solid #000; background: rgba(255, 0, 0, 0.38); color:black;">
                                     {{ $payment->payment_status }}</p>
-
                             @else
                                 <p class="text-warning">{{ $payment->payment_status }}</p>
                             @endif
                         </td>
                         <td>
                             <div class="d-flex justify-content-center">
-                                <a href="/user/viewPaymentDetails/{{$payment->payment_id}}">
-                                    <i class="fas fa-eye text-dark"></i>
-                                </a>
+                                @if ($payment->payment_status === 'New')
+                                    <a
+                                        href="{{ route('bursary.paymentApproval', ['id' => $payment->payment_id]) }}">
+                                        <i class="fas fa-eye text-dark"></i>
+                                    </a>
+                                @else
+                                    <a href="{{ route('bursary.viewPayment', ['id' => $payment->payment_id]) }}">
+                                        <i class="fas fa-eye text-dark"></i>
+                                    </a>
+                                @endif
                             </div>
                         </td>
                     </tr>
