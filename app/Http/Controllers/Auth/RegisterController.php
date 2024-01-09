@@ -74,15 +74,18 @@ class RegisterController extends Controller
             'gender' => $data['gender'],
             'contact' => $data['contact'],
             'email' => $data['email'],
+            'email_verified_at' => now(),
             'password' => Hash::make($data['password']),
         ]);
 
-        // // Link the user to the applicant table
-        // Applicant::create([
-        //     'user_id' => $user->id,
-        //     // Add other fields for the applicant table as needed
-        // ]);
+        // Link the user to the applicant table
+        Applicant::create([
+            'user_id' => $user->id,
+            // Add other fields for the applicant table as needed
+        ]);
 
-        return $user;
+        if($user){
+            return redirect()->route('login');
+        }
     }
 }
