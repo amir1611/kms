@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('payments', function (Blueprint $table) {
-            $table->id('');
+            $table->id('payment_id'); 
             $table->foreignId('kiosk_id')->constrained('kiosks');
             $table->foreignId('user_id')->constrained('users');
             $table->string('payment_type');
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->binary('payment_receipt');
             $table->string('payment_status');
             $table->date('payment_date');
-            $table->text('payment_comment')->nullable();;
+            $table->string('payment_comment')->nullable();
             $table->timestamps();
         });
     }
@@ -33,3 +33,4 @@ return new class extends Migration
         Schema::dropIfExists('payments');
     }
 };
+

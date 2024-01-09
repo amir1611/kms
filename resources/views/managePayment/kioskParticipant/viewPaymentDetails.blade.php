@@ -43,16 +43,6 @@
             </div>
 
             <hr class="border-0">
-
-            <!-- <div class="d-flex align-items-center">
-                <div class="col-3">
-                    <p><b>Payment ID</b></p>
-                </div>
-
-                <div class="w-100">
-                    <input type="number" class="form-control" id="payment_id" name="payment_id" value="{{$payment->payment_id}}" disabled>
-                </div>
-            </div> -->
             <div class="d-flex align-items-center">
                 <div class="col-3">
                     <p><b>Payment ID</b></p>

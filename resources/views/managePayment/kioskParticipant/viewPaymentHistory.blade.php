@@ -65,14 +65,14 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item"
                                 href="{{ route('user.viewPaymentHistory', ['sort' => 'All']) }}">All</a></li>
+                                <li><a class="dropdown-item"
+                                href="{{ route('user.viewPaymentHistory', ['sort' => 'New']) }}">New</a></li>
                         <li><a class="dropdown-item"
                                 href="{{ route('user.viewPaymentHistory', ['sort' => 'Pending']) }}">Pending</a></li>
                         <li><a class="dropdown-item"
                                 href="{{ route('user.viewPaymentHistory', ['sort' => 'Approved']) }}">Approved</a></li>
                         <li><a class="dropdown-item"
                                 href="{{ route('user.viewPaymentHistory', ['sort' => 'Rejected']) }}">Rejected</a></li>
-                        <li><a class="dropdown-item"
-                                href="{{ route('user.viewPaymentHistory', ['sort' => 'New']) }}">New</a></li>
                     </ul>
                     </ul>
 
@@ -93,6 +93,7 @@
                     <th>Payment Type</th>
                     <th>Date</th>
                     <th>Payment Status</th>
+                    <th>Comments</th>
                     <th>View</th>
                 </tr>
             </thead>
@@ -128,6 +129,7 @@
                                 <p class="text-warning">{{ $payment->payment_status }}</p>
                             @endif
                         </td>
+                        <td>{{ $payment->payment_comment }}</td>
                         <td>
                             <div class="d-flex justify-content-center">
                                 <a href="/user/viewPaymentDetails/{{$payment->payment_id}}">

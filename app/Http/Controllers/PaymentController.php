@@ -54,7 +54,7 @@ class PaymentController extends Controller
                 'payment_amount' => $request->input('payment_amount'),
                 'payment_date' => $request->input('payment_date'),
                 'payment_receipt' => $payment_receipt,
-                'payment_status' => 'New',
+                'payment_status' => 'Pending',
                 'payment_comment' => '',
              ]);
 
@@ -74,7 +74,7 @@ class PaymentController extends Controller
 
     public function viewPaymentHistory(Request $request)
     {
-        // Assuming you have user authentication and want to retrieve reports for the authenticated user
+        // Assuming you have user authentication and want to retrieve payments for the authenticated user
         $userId = auth()->user()->id;
         
         $query = Payments::join('kiosks', 'payments.kiosk_id', '=', 'kiosks.id')
@@ -84,7 +84,8 @@ class PaymentController extends Controller
                             'payments.payment_id', // Use the actual column name without an alias
                             'payments.payment_type',
                             'payments.payment_date',
-                            'payments.payment_status'
+                            'payments.payment_status',
+                            'payments.payment_comment',
                         );
 
 
@@ -93,11 +94,11 @@ class PaymentController extends Controller
 
         if ($sort !== 'all') {
             switch ($sort) {
-                case 'pending':
-                    $query->where('payments.payment_status', 'Pending');
-                    break;
                 case 'approved':
                     $query->where('payments.payment_status', 'Approved');
+                    break;
+                case 'pending':
+                    $query->where('payments.payment_status', 'Pending');
                     break;
                 case 'rejected':
                     $query->where('payments.payment_status', 'Rejected');
@@ -205,7 +206,8 @@ class PaymentController extends Controller
                         'users.email',
                         'users.contact',
                         'payments.payment_status',
-    );
+                        'payments.payment_comment',
+                );
 
 
         $sort = strtolower($request->input('sort', 'all'));
@@ -277,5 +279,15 @@ class PaymentController extends Controller
 
     return view('managePayment.fkBursary.paymentApproval', ['payment' => $payment, 'user' => $user]);
     }
+
+    public function paymentApproval($id)
+    {
+    // Fetch payment details
+    $payment = Payments::findOrFail($id);
+    $user = $payment->user;
+
+    return view('managePayment.fkBursary.paymentApproval', ['payment' => $payment, 'user' => $user]);
+}
+
 
 }
