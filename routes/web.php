@@ -52,8 +52,6 @@ Route::prefix('pupuk-admin')->name('pupuk.')->group(function () {
 });
 
 
-
-
 //ALL ROUTES FOR KIOSK PARTICIPANT
 Route::prefix('user')->name('user.')->group(function () {
     Route::group(['middleware' => ['auth', 'verified', 'user-role:user']], function () {

@@ -78,11 +78,9 @@ class RegisterController extends Controller
         ]);
 
         // Link the user to the applicant table
-        Applicant::create([
-            'user_id' => $user->id,
-            // Add other fields for the applicant table as needed
-        ]);
 
-        return $user;
+        if($user){
+            return redirect()->route('login');
+        }
     }
 }
