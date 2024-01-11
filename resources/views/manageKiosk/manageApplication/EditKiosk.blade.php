@@ -19,7 +19,7 @@
             <div class="table-responsive">
                 <table class="table mt-3 profile-table">
                     <tr>
-                        <th class="col-md-4" style="width: 200px;">Application ID</th>
+                        <th class="col-md-4" style="width: 200px;">Kiosk ID</th>
                         <td> {{ $application->application_id }}</td>
                     </tr>
                     <tr>
