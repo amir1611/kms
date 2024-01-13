@@ -61,12 +61,19 @@
                     <span>{{ __('Manage Kiosk') }}</span>
                 </a>
             </li>
-            
+
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('user.reportList') }}">
                     <i class="bi bi-file-earmark-bar-graph-fill"></i>
                     <span>{{ __('Monthly Report') }}</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('user.createComplaint') }}">
+                    <i class="bi bi-shop-window"></i>
+                    <span>{{ __('Manage Complaint') }}</span>
+                </a>
             </li>
 
             <li class="nav-item">
