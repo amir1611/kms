@@ -9,7 +9,7 @@ use App\Models\Kiosk;
 
 //  @foreach($kiosks as $kiosk)
 // <option value="{{ $kiosk->id }}">1</option>
-// @endforeach 
+// @endforeach
 
 class ReportController extends Controller
 {
@@ -74,7 +74,7 @@ class ReportController extends Controller
         $userId = auth()->user()->id;
 
         // Retrieve reports for the authenticated user
-        $reports = Report::join('kiosks', 'reports.id', '=', 'kiosks.kiosk_id')
+        $reports = Report::join('kiosks', 'reports.id', '=', 'kiosks.kiosk.id')
         ->where('kiosks.user_id', $userId)
         ->select(
             'reports.*'
