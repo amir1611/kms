@@ -38,7 +38,7 @@ class ReportController extends Controller
 
 
             $report = new Report([
-                'kiosk.id' => $request->input('kioskValue'),
+                'kiosk_id' => $request->input('kioskValue'),
                 'report_month' => $request->input('monthPicker'),
                 'report_monthly_revenue' => $request->input('revenue_Ringgit') + ($request->input('revenue_Sen') / 100),
                 'report_operating_hour' => $request->input('optHours'),
@@ -74,7 +74,7 @@ class ReportController extends Controller
         $userId = auth()->user()->id;
 
         // Retrieve reports for the authenticated user
-        $reports = Report::join('kiosks', 'reports.id', '=', 'kiosks.kiosk.id')
+        $reports = Report::join('kiosks', 'reports.id', '=', 'kiosks.kiosk_id')
         ->where('kiosks.user_id', $userId)
         ->select(
             'reports.*'
