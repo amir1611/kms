@@ -38,7 +38,7 @@ class ReportController extends Controller
 
 
             $report = new Report([
-                'kiosk_id' => $request->input('kioskValue'),
+                'kiosk.id' => $request->input('kioskValue'),
                 'report_month' => $request->input('monthPicker'),
                 'report_monthly_revenue' => $request->input('revenue_Ringgit') + ($request->input('revenue_Sen') / 100),
                 'report_operating_hour' => $request->input('optHours'),
