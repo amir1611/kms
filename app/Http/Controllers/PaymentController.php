@@ -27,7 +27,7 @@ class PaymentController extends Controller
      * Show the form for creating a new resource.
      */
 
-    //tukar ke addPayment
+   
      //To store payment
     public function addPayment(Request $request)
     {
@@ -72,6 +72,9 @@ class PaymentController extends Controller
             ]);
         }
     }
+
+
+
 
 
     public function viewPaymentHistory(Request $request)
@@ -131,14 +134,21 @@ class PaymentController extends Controller
         ]);
     }
 
-    public function viewEditPayment($id)
-{
-    // Fetch the payment data based on the ID
-    $payment = Payments::findOrFail($id);
 
-    // Pass the payment data to the view
-    return view('managePayment.kioskParticipant.editPayment', ['payment' => $payment]);
-}
+
+
+    //edit payment form
+    public function viewEditPayment($id)
+    {
+        // Fetch the payment data based on the ID
+        $payment = Payments::findOrFail($id);
+
+        // Pass the payment data to the view
+        return view('managePayment.kioskParticipant.editPayment', ['payment' => $payment]);
+    }
+
+
+
 
 
     //To update payment information
@@ -152,8 +162,6 @@ class PaymentController extends Controller
             'payment_date' => 'required|date_format:Y-m-d',
 
         ]);
-
-
 
         // Update payment data
         $payment = Payments::findOrFail($id);
@@ -172,19 +180,27 @@ class PaymentController extends Controller
             ->with('success', 'Payment information updated successfully.');
     }
 
+
+
+
+
     public function viewPaymentDetails($id)
     {
-    // Get the authenticated user's ID
-    $userId = auth()->user()->id;
+        // Get the authenticated user's ID
+        $userId = auth()->user()->id;
 
-    // Fetch data based on user ID and payment ID
-    $data = Payments::where('user_id', $userId)
-        ->where('payment_id', $id)
-        ->first(); // Assuming you expect only one result
+        // Fetch data based on user ID and payment ID
+        $data = Payments::where('user_id', $userId)
+                        ->where('payment_id', $id)
+                        ->first(); // Assuming you expect only one result
 
-    // Pass the data to the view
-    return view('managePayment.kioskParticipant.viewPaymentDetails', ['payment' => $data]);
+        // Pass the data to the view
+        return view('managePayment.kioskParticipant.viewPaymentDetails', ['payment' => $data]);
     }
+
+
+
+
 
     public function deletePayment($id)
     {
@@ -196,7 +212,11 @@ class PaymentController extends Controller
         return redirect()->route('user.viewPaymentHistory')->with('success', 'Payment deleted successfully.');
     }
 
-    //tukar viewAllPayment
+
+
+
+
+    // view payment list
     public function viewAllPayment(Request $request)
     {
         // Fetch payment data from the payments table and related user data
@@ -208,11 +228,13 @@ class PaymentController extends Controller
                         'payments.payment_type',
                         'users.email',
                         'users.contact',
+                        'payments.created_at',
+                        'payments.updated_at',
                         'payments.payment_status',
                         'payments.payment_comment',
                 );
 
-
+        //filter payment status
         $sort = strtolower($request->input('sort', 'all'));
 
         if ($sort !== 'all') {
@@ -225,9 +247,6 @@ class PaymentController extends Controller
                     break;
                 case 'rejected':
                     $query->where('payments.payment_status', 'Rejected');
-                    break;
-                case 'new':
-                    $query->where('payments.payment_status', 'New');
                     break;
             }
         }
@@ -254,6 +273,10 @@ class PaymentController extends Controller
         ]);
     }
 
+
+
+
+
     public function processPayment(Request $request, $id)
     {
 
@@ -273,22 +296,31 @@ class PaymentController extends Controller
         return redirect()->route('bursary.viewAllPayment', ['id' => $id])->with('success', 'Payment processed successfully.');
     }
 
-   // View payment details
-    public function viewPayment($id)
-    {
-    // Fetch payment details
-    $payment = Payments::findOrFail($id);
-    $user = $payment->user;
 
-    return view('managePayment.fkBursary.paymentApproval', ['payment' => $payment, 'user' => $user]);
-    }
+
+
+
+
+//    // View payment details
+//     public function viewPayment($id)
+//     {
+//         // Fetch payment details
+//         $payment = Payments::findOrFail($id);
+//         $user = $payment->user;
+
+//         return view('managePayment.fkBursary.paymentApproval', ['payment' => $payment, 'user' => $user]);
+//     }
+
+
+
+
 
     //viewPaymentApproval
     public function paymentApproval($id)
     {
         // // Fetch payment details
-        // $payment = Payments::findOrFail($id);
-        // $user = $payment->user;
+        $payment = Payments::findOrFail($id);
+        $user = $payment->user;
 
         // Fetch payment data from the payments table and related user data
         $query = Payments::join('kiosks', 'payments.kiosk_id', '=', 'kiosks.id')

@@ -84,6 +84,8 @@
                     <th>Payment Type</th>
                     <th>Email</th>
                     <th>Phone Number</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
                     <th>Comment</th>
                     <th>Status</th>
                     <th>View</th>
@@ -97,6 +99,8 @@
                         <td>{{ $payment->payment_type }}</td>
                         <td>{{ $payment->email }}</td>
                         <td>{{ $payment->contact }}</td>
+                        <td>{{ $payment->created_at }}</td>
+                        <td>{{ $payment->updated_at}}</td>
                         <td>{{ $payment->payment_comment}}</td>
                         <td>
                             @if ($payment->payment_status == 'Pending')
@@ -124,16 +128,13 @@
                         </td>
                         <td>
                             <div class="d-flex justify-content-center">
-                                @if ($payment->payment_status === 'New')
+                                @if($payment->payment_status === 'Pending')
                                     <a
                                         href="{{ route('bursary.paymentApproval', ['id' => $payment->payment_id]) }}">
                                         <i class="fas fa-eye text-dark"></i>
                                     </a>
-                                @else
-                                    <a href="{{ route('bursary.viewPayment', ['id' => $payment->payment_id]) }}">
-                                        <i class="fas fa-eye text-dark"></i>
-                                    </a>
                                 @endif
+
                             </div>
                         </td>
                     </tr>
