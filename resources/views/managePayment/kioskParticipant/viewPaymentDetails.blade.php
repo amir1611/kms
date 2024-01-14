@@ -116,21 +116,38 @@
 
             <hr class="border-0">
 
-            <!-- <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center">
                 <div class="col-3">
-                    <p><b>Status</b></p>
+                    <p><b>Created At</b></p>
                 </div>
+
                 <div class="w-100">
-                    <input type="type" class="form-control" id="payment_status" name="payment_status" value="{{ $payment->payment_status }}" disabled>
+                    <input type="datetime" class="form-control" id="created_at" name="created_at" value="{{$payment->created_at}}" disabled >
                 </div>
-            </div> -->
+             </div>
+
+             <hr class="border-0">
+
+            <div class="d-flex align-items-center">
+                <div class="col-3">
+                    <p><b>Updated At</b></p>
+                </div>
+
+                <div class="w-100">
+                    <input type="datetime" class="form-control" id="updated_at" name="updated_at" value="{{$payment->updated_at}}" disabled >
+                </div>
+             </div>
+            
+            
+
+            <hr class="border-0">
 
             <div class="text-center mt-5">
     <a href="{{ route('user.deletePayment', ['id' => $payment->payment_id]) }}" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn pl-3 pr-3 mb-4 mr-3 bg-danger text-light">
         <b>Delete</b>
     </a>
 
-    <a href="{{ route('user.showEditPaymentForm', ['id' => $payment->payment_id]) }}" class="btn pl-3 pr-3 mb-4 mr-3 bg-success text-light">
+    <a href="{{ route('user.viewEditPayment', ['id' => $payment->payment_id]) }}" class="btn pl-3 pr-3 mb-4 mr-3 bg-success text-light">
         <b>Edit</b>
     </a>
 </div>

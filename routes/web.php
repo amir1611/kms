@@ -69,13 +69,13 @@ Route::prefix('user')->name('user.')->group(function () {
 
         // managePayment
         Route::get('/viewPaymentHistory', [PaymentController::class, 'viewPaymentHistory'])->name('viewPaymentHistory');
-        Route::get('/createPayment', [PaymentController::class, 'showCreatePaymentForm'])->name('createPayment');
-        Route::post('/createPayment', [PaymentController::class, 'createPayment'])->name('submitCreatePayment');
+        Route::get('/addPayment', [PaymentController::class, 'showAddPaymentForm'])->name('addPayment');
+        Route::post('/addPayment', [PaymentController::class, 'addPayment'])->name('submitAddPayment');
         Route::get('/viewPaymentDetails/{id}', [PaymentController::class, 'viewPaymentDetails']);
         Route::get('/filter/{filterData}', [PaymentController::class, 'filterTable'])->name('filterSec');
         Route::get('/search', [PaymentController::class, 'searchPayment'])->name('searchPayment');
         Route::get('/deletePayment/{id}', [PaymentController::class, 'deletePayment'])->name('deletePayment');
-        Route::get('edit-payment/{id}', [PaymentController::class, 'showEditPaymentForm'])->name('showEditPaymentForm');
+        Route::get('edit-payment/{id}', [PaymentController::class, 'viewEditPayment'])->name('viewEditPayment');
         Route::put('/user/edit-payment/{id}', [PaymentController::class, 'editPayment'])->name('editPayment');
 
 
@@ -128,7 +128,7 @@ Route::prefix('fk-bursary')->name('bursary.')->group(function () {
         Route::post('/store-staff', [UserController::class, 'storeStaff'])->name('store-staff');
 
         //managePayment
-        Route::get('/viewPaymentList', [PaymentController::class, 'viewPaymentList'])->name('viewPaymentList');
+        Route::get('/viewPaymentList', [PaymentController::class, 'viewAllPayment'])->name('viewAllPayment');
         Route::get('/view-payment/{id}', [PaymentController::class, 'viewPayment'])->name('viewPayment');
         Route::get('/payment-approval/{id}', [PaymentController::class, 'paymentApproval'])->name('paymentApproval');
         Route::get('/view-payment/{id}', [PaymentController::class, 'viewPayment'])->name('viewPayment');

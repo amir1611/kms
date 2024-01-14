@@ -31,7 +31,7 @@
 @section('main-content')
     <div class="container2" style="background-color: white; border-radius: 30px; margin-left: 100px; margin-right: 100px;">
 
-        <form action="{{ route('user.submitCreatePayment') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('user.submitAddPayment') }}" method="POST" enctype="multipart/form-data">
             <div class="mt-4 profile-header pr-5 pl-5 pt-3">
                 <div class="text-center">
                     <h4 class="font-weight-bold mx-auto mt-2 profile-title mb-4">Payment</h4>

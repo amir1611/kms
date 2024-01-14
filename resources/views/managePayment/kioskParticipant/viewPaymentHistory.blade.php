@@ -76,7 +76,7 @@
                     </ul>
                     </ul>
 
-                    <a href="{{route('user.createPayment')}}"><button type="button" id="addPaymentBTN" class="btn pl-3 pr-3" style="margin-left: 15px" data-mdb-ripple-init><b>+</b></button></a>
+                    <a href="{{route('user.addPayment')}}"><button type="button" id="addPaymentBTN" class="btn pl-3 pr-3" style="margin-left: 15px" data-mdb-ripple-init><b>+</b></button></a>
 
                 </div>
             </div>

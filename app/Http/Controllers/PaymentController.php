@@ -15,7 +15,7 @@ class PaymentController extends Controller
 {
     
     //To display Payment form and and redirect to relevant view page
-    public function showCreatePaymentForm()
+    public function showAddPaymentForm()
     {
         $user = Auth::user();
 
@@ -27,8 +27,9 @@ class PaymentController extends Controller
      * Show the form for creating a new resource.
      */
 
-    //To store payment
-    public function createPayment(Request $request)
+    //tukar ke addPayment
+     //To store payment
+    public function addPayment(Request $request)
     {
         try {
 
@@ -71,6 +72,7 @@ class PaymentController extends Controller
             ]);
         }
     }
+
 
     public function viewPaymentHistory(Request $request)
     {
@@ -129,7 +131,7 @@ class PaymentController extends Controller
         ]);
     }
 
-    public function showEditPaymentForm($id)
+    public function viewEditPayment($id)
 {
     // Fetch the payment data based on the ID
     $payment = Payments::findOrFail($id);
@@ -194,7 +196,8 @@ class PaymentController extends Controller
         return redirect()->route('user.viewPaymentHistory')->with('success', 'Payment deleted successfully.');
     }
 
-    public function viewPaymentList(Request $request)
+    //tukar viewAllPayment
+    public function viewAllPayment(Request $request)
     {
         // Fetch payment data from the payments table and related user data
         $query = Payments::join('kiosks', 'payments.kiosk_id', '=', 'kiosks.id')
@@ -267,7 +270,7 @@ class PaymentController extends Controller
             'payment_comment' => $request->input('payment_comment'),
         ]);
 
-        return redirect()->route('bursary.viewPaymentList', ['id' => $id])->with('success', 'Payment processed successfully.');
+        return redirect()->route('bursary.viewAllPayment', ['id' => $id])->with('success', 'Payment processed successfully.');
     }
 
    // View payment details
@@ -280,14 +283,32 @@ class PaymentController extends Controller
     return view('managePayment.fkBursary.paymentApproval', ['payment' => $payment, 'user' => $user]);
     }
 
+    //viewPaymentApproval
     public function paymentApproval($id)
     {
-    // Fetch payment details
-    $payment = Payments::findOrFail($id);
-    $user = $payment->user;
+        // // Fetch payment details
+        // $payment = Payments::findOrFail($id);
+        // $user = $payment->user;
 
-    return view('managePayment.fkBursary.paymentApproval', ['payment' => $payment, 'user' => $user]);
-}
+        // Fetch payment data from the payments table and related user data
+        $query = Payments::join('kiosks', 'payments.kiosk_id', '=', 'kiosks.id')
+                    ->join('users', 'payments.user_id', '=', 'users.id')
+                    ->select(
+                        'payments.payment_id',
+                        'kiosks.id as kiosk_id',
+                        'payments.payment_type',
+                        'payments.payment_amount',
+                        'payments.payment_receipt',
+                        'payments.payment_date',
+                        'users.name',
+                        'users.email',
+                        'users.contact',
+                        'payments.payment_status',
+                        'payments.payment_comment',
+                );
+
+        return view('managePayment.fkBursary.paymentApproval', ['payment' => $payment, 'user' => $user]);
+    }
 
 
 }

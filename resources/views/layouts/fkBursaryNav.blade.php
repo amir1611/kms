@@ -49,7 +49,7 @@
         </li>
 
         <li class="nav-item">
-                <a class="nav-link" href="{{ route('bursary.viewPaymentList') }}">
+                <a class="nav-link" href="{{ route('bursary.viewAllPayment') }}">
                     <i class="bi bi-cash-stack"></i>
                     <span>{{ __('Manage Payment') }}</span>
                 </a>

@@ -45,7 +45,7 @@
             <h4 style="margin-left: 20px"><b>Payment List</b></h4>
 
             <div class="d-flex">
-                <form class="d-flex input-group w-auto mr-4" method="get" action="{{ route('bursary.viewPaymentList') }}">
+                <form class="d-flex input-group w-auto mr-4" method="get" action="{{ route('bursary.viewAllPayment') }}">
 
                     <span class="input-group-text searchLogo bg-light" id="search-addon">
                         <i class="fas fa-search"></i>
@@ -64,15 +64,13 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li><a class="dropdown-item"
-                                href="{{ route('bursary.viewPaymentList', ['sort' => 'All']) }}">All</a></li>
+                                href="{{ route('bursary.viewAllPayment', ['sort' => 'All']) }}">All</a></li>
                         <li><a class="dropdown-item"
-                                href="{{ route('bursary.viewPaymentList', ['sort' => 'New']) }}">New</a></li>
+                                href="{{ route('bursary.viewAllPayment', ['sort' => 'Pending']) }}">Pending</a></li>
                         <li><a class="dropdown-item"
-                                href="{{ route('bursary.viewPaymentList', ['sort' => 'Pending']) }}">Pending</a></li>
+                                href="{{ route('bursary.viewAllPayment', ['sort' => 'Approved']) }}">Approved</a></li>
                         <li><a class="dropdown-item"
-                                href="{{ route('bursary.viewPaymentList', ['sort' => 'Approved']) }}">Approved</a></li>
-                        <li><a class="dropdown-item"
-                                href="{{ route('bursary.viewPaymentList', ['sort' => 'Rejected']) }}">Rejected</a></li>
+                                href="{{ route('bursary.viewAllPayment', ['sort' => 'Rejected']) }}">Rejected</a></li>
                     </ul>
                 </div>
             </div>
