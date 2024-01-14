@@ -161,7 +161,7 @@
         </div>
 
         <div class="text-center mt-5">
-            <a href=""  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn pl-3 pr-3 mb-4 mr-3 bg-danger text-light"> <b>Delete</b></button></a>
+            <a href="{{route('user.deleteReport', ['id' => $report->id])}}" class="btn pl-3 pr-3 mb-4 mr-3 bg-danger text-light"> <b>Delete</b></button></a>
             
             <a href="{{route('user.updateReport', ['id' => $report->id])}}" class="btn pl-3 pr-3 mb-4 bg-white text-dark" ><b>Update</b></button></a>
 
@@ -182,7 +182,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="{{route('user.deleteReport', ['id' => $report->id])}}"><button type="button" class="btn btn-danger">Delete</button></a>
+                    <a ><button type="button" class="btn btn-danger">Delete</button></a>
                 </div>
             </div>
         </div>

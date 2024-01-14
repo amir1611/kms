@@ -81,7 +81,7 @@ class RegisterController extends Controller
         // Link the user to the applicant table
 
         if($user){
-            return redirect()->route('login');
+            return view('auth.loginn');
         }
     }
 }
