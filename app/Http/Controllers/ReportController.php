@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 //  @foreach($kiosks as $kiosk)
 // <option value="{{ $kiosk->id }}">1</option>
-// @endforeach 
+// @endforeach
 
 class ReportController extends Controller
 {

@@ -47,6 +47,13 @@
                 <span>{{ __('Profile') }}</span></a>
         </li>
 
+         <!-- Nav Item - Complaint -->
+         <li class="nav-item">
+            <a class="nav-link" href="{{route('technical.viewAllComplaint')}}">
+                <i class="fas fa-fw fa-user"></i>
+                <span>{{ __('Complaint') }}</span></a>
+        </li>
+
         <!-- Nav Item - Profile -->
         {{-- <li class="nav-item ">
             <a class="nav-link" href="{{route('technical.prepCourse.applicantList')}}">
