@@ -128,12 +128,10 @@
                         </td>
                         <td>
                             <div class="d-flex justify-content-center">
-                                @if($payment->payment_status === 'Pending')
                                     <a
                                         href="{{ route('bursary.paymentApproval', ['id' => $payment->payment_id]) }}">
                                         <i class="fas fa-eye text-dark"></i>
                                     </a>
-                                @endif
 
                             </div>
                         </td>
