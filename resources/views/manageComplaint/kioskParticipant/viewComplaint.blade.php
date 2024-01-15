@@ -1,5 +1,8 @@
 @extends('layouts.userNav')
 
+
+{{-- KP to view Complaint --}}
+
 @section('main-content')
     <div class="container">
         <h4 class="font-weight-bold mt-4 mb-4">View Complaints</h4>

@@ -1,5 +1,7 @@
 @extends('layouts.fkTechnicalNav')
 
+{{-- fk tech to update their feedbacks on complaint --}}
+
 @section('main-content')
     <div class="container2">
         <form action="{{ route('technical.updateComplaint', ['id' => $complaint->id]) }}" method="POST">

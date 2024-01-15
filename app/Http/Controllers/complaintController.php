@@ -115,6 +115,7 @@ class complaintController extends Controller
 
     }
 
+    //function for technical edit
     public function fkeditComplaint($id)
     {
         // Fetch the complaint by ID
