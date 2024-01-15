@@ -28,6 +28,8 @@
 
     <!-- Favicon -->
     <link href="{{ asset('img/favicon.png') }}" rel="icon" type="image/png">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body id="page-top">
@@ -59,6 +61,13 @@
                 <a class="nav-link" href="{{ route('user.applyKiosk') }}">
                     <i class="bi bi-shop-window"></i>
                     <span>{{ __('Manage Kiosk') }}</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('user.viewPaymentHistory') }}">
+                    <i class="bi bi-cash-stack"></i>
+                    <span>{{ __('Manage Payment') }}</span>
                 </a>
             </li>
 

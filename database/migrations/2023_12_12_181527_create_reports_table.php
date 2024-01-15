@@ -20,7 +20,7 @@ return new class extends Migration
             $table->mediumText('report_remark');
             $table->binary('report_pdf');
             $table->string('report_status');
-            $table->mediumText('report_suggestion');
+            $table->mediumText('report_suggestion')->nullable();
             $table->timestamps();
         });
     }

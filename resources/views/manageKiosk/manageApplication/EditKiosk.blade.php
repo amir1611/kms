@@ -14,12 +14,12 @@
             @method('PUT')
 
             <div class="row mt-4 profile-header">
-                <h4 class="font-weight-bold mx-auto mt-2 profile-title">Edit Kiosk Information</h4>
+                <h4 class="font-weight-bold mx-auto mt-2 profile-title text-center">Edit Kiosk Information</h4>
             </div>
             <div class="table-responsive">
                 <table class="table mt-3 profile-table">
                     <tr>
-                        <th class="col-md-4" style="width: 200px;">Application ID</th>
+                        <th class="col-md-4" style="width: 200px;">Kiosk ID</th>
                         <td> {{ $application->application_id }}</td>
                     </tr>
                     <tr>
@@ -92,7 +92,7 @@
             </div>
             <div class="text-center">
                 <input class="btn profile-btn" type="submit"
-                    onclick="return confirm('Confirm to update business information?')" value="Edit Profile">
+                    onclick="return confirm('Confirm to update business information?')" value="Update">
             </div>
             <br>
             <br>

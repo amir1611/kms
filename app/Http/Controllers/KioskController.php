@@ -16,7 +16,7 @@ class KioskController extends Controller
 {
 
 
-
+    //To display Kiosk Application form and and redirect to relevant view page
     public function showApplyKioskForm()
     {
         $user = Auth::user();
@@ -50,6 +50,13 @@ class KioskController extends Controller
         }
     }
 
+
+
+
+
+
+
+    //To update kiosk information
     public function updateKiosk(Request $request, $id)
     {
         // Validate and update the application data
@@ -59,7 +66,7 @@ class KioskController extends Controller
             'business_category' => 'required|string',
             'business_information' => 'required|string',
             'business_operating_hour' => 'required|string',
-            // Add more validation rules as needed
+
         ]);
 
         // Update application data
@@ -71,21 +78,22 @@ class KioskController extends Controller
             'business_category' => $request->input('business_category'),
             'business_information' => $request->input('business_information'),
             'business_operating_hour' => $request->input('business_operating_hour'),
-            // Add more fields as needed
+
         ]);
 
         // Pass the updated application data to the view
         return view('manageKiosk.manageApplication.EditKiosk', ['application' => $application])
             ->with('success', 'Kiosk information updated successfully.');
     }
-    
-    
 
 
 
 
 
-    public function rejectApplication(){
+
+    //To reject Kiosk Application
+    public function rejectApplication()
+    {
         return view('manageKiosk.manageApplication.ApplyKiosk');
     }
 
@@ -95,14 +103,7 @@ class KioskController extends Controller
 
 
 
-
-
-
-
-
-
-
-
+    //To apply for kiosk 
     public function applyKiosk(Request $request)
     {
         try {
@@ -118,9 +119,8 @@ class KioskController extends Controller
                 'business_proposal_pdf' => 'required|mimes:pdf|max:2048',
             ]);
 
-            // Handle file storage using the store method
-            $ssmPdfPath = $request->file('ssm_pdf')->store('pdfs');
-            $businessProposalPdfPath = $request->file('business_proposal_pdf')->store('pdfs');
+            $ssmPdfPath = $request->file('ssm_pdf')->storeAs('applications', 'ssm_' . time() . '.pdf', 'public');
+            $businessProposalPdfPath = $request->file('business_proposal_pdf')->storeAs('applications', 'proposal_' . time() . '.pdf', 'public');
 
             // Create a new application record
             $application = new applications([
@@ -147,6 +147,16 @@ class KioskController extends Controller
             ]);
         }
     }
+
+
+
+
+
+
+
+
+
+
 
     public function viewKioskApplication(Request $request)
     {
@@ -193,7 +203,7 @@ class KioskController extends Controller
         }
 
         // Execute the query with pagination
-        $kioskApplications = $query->paginate(10); // Adjust the number as per your requirement
+        $kioskApplications = $query->paginate(10);
 
         // Pass the data to the view along with the current sorting option and search query
         return view('manageKiosk.manageApplication.KioskApplication', [
@@ -202,6 +212,10 @@ class KioskController extends Controller
             'currentSearch' => $searchQuery,
         ]);
     }
+
+
+
+
 
 
 
@@ -214,8 +228,26 @@ class KioskController extends Controller
         return view('manageKiosk.manageApplication.KioskApproval', ['application' => $application, 'user' => $user]);
     }
 
+
+
+
+
+
+
+
+
     public function processApplication(Request $request, $id)
     {
+        $maxActiveApplications = 5; // Set the maximum number of active applications
+
+        // Find the existing active applications
+        $activeApplicationsCount = Applications::where('application_status', 'Active')->count();
+
+        // Validate the number of active applications
+        if ($request->input('action') === 'approve' && $activeApplicationsCount >= $maxActiveApplications) {
+            return redirect()->route('pupuk.viewKioskApplication')->with('error', 'We have reached the maximum number of kiosk participants.');
+        }
+
         $application = Applications::findOrFail($id);
 
         // Validate the request
@@ -244,6 +276,12 @@ class KioskController extends Controller
         return redirect()->route('pupuk.viewKioskApplication', ['id' => $id])->with('success', 'Application processed successfully.');
     }
 
+
+
+
+
+
+
     public function viewApplication($id)
     {
         // Fetch application details along with user details
@@ -253,11 +291,18 @@ class KioskController extends Controller
         return view('manageKiosk.manageParticipant.ViewActiveParticipant', ['application' => $application, 'user' => $user]);
     }
 
+
+
+
+
+
+
+
     public function viewKioskParticipant(Request $request)
     {
         // Fetch kiosk applications data from the applications table and related user and kiosk data
-        $query = applications::join('users', 'applications.user_id', '=', 'users.id')
-            ->leftJoin('kiosks', 'users.id', '=', 'kiosks.user_id')
+        $query = Kiosk::join('applications', 'kiosks.application_id', '=', 'applications.application_id')
+            ->join('users', 'applications.user_id', '=', 'users.id')
             ->select(
                 'applications.application_id',
                 'users.name',
@@ -282,7 +327,7 @@ class KioskController extends Controller
         }
 
         // Execute the query with pagination
-        $kioskApplications = $query->paginate(10); // Adjust the number as per your requirement
+        $kioskApplications = $query->paginate(10);
 
         // Pass the data to the view along with the current search query
         return view('manageKiosk.manageParticipant.KioskParticipant', [
@@ -290,6 +335,9 @@ class KioskController extends Controller
             'currentSearch' => $searchQuery,
         ]);
     }
+
+
+
 
 
     public function deleteKiosk($id)
@@ -303,6 +351,8 @@ class KioskController extends Controller
         // Redirect back or wherever you want
         return redirect()->back()->with('success', 'Kiosk deleted successfully.');
     }
+
+
 
 
     public function updateApplicationStatus($id)

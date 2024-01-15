@@ -12,7 +12,7 @@ class Kiosk extends Model
 
     protected $table = 'kiosks';
 
-    protected $primaryKey = 'kiosk_id';
+    protected $primaryKey = 'id';
 
 
     protected $fillable = [

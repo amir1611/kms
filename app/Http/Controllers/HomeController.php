@@ -33,10 +33,10 @@ class HomeController extends Controller
     //     return view('manageReport.viewMonthlyReportList');
     // }
 
-    public function uploadMonthlyReport()
-    {
-        return view('manageReport.uploadMonthlyReport');
-    }
+    // public function uploadMonthlyReport()
+    // {
+    //     return view('manageReport.uploadMonthlyReport');
+    // }
 
 
     public function indexPupukAdmin()

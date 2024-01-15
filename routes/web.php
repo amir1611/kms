@@ -117,5 +117,5 @@ Route::prefix('fk-bursary')->name('bursary.')->group(function () {
         Route::get('/', [HomeController::class, 'indexFKBursary'])->name('home');
         Route::get('/register-staff', [UserController::class, 'registerStaff'])->name('register-staff');
         Route::post('/store-staff', [UserController::class, 'storeStaff'])->name('store-staff');
-    });
+    });
 });

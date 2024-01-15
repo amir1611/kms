@@ -68,18 +68,12 @@
                         <td>{{ $application->ic }}</td>
                         <td>
                             <div class="d-flex justify-content-center">
-                                @if ($application->application_status === 'New')
-                                    <a href="{{ route('pupuk.viewApplicationApproval', ['id' => $application->application_id]) }}">
-                                        <i class="fas fa-eye text-dark"></i>
-                                    </a>
-                                @else
-                                    <a href="{{ route('pupuk.viewApplication', ['id' => $application->application_id]) }}">
-                                        <i class="fas fa-eye text-dark"></i>
-                                    </a>
-                                    <a href="{{ route('pupuk.updateApplicationStatus', ['id' => $application->application_id]) }}">
-                                        <i class="fas fa-trash text-danger" style="margin-left: 20px"></i>
-                                    </a>
-                                @endif
+                                <a href="{{ route('pupuk.viewApplication', ['id' => $application->application_id]) }}">
+                                    <i class="fas fa-eye text-dark"></i>
+                                </a>
+                                <a href="{{ route('pupuk.updateApplicationStatus', ['id' => $application->application_id]) }}">
+                                    <i class="fas fa-trash text-danger" style="margin-left: 20px"></i>
+                                </a>
                             </div>
                         </td>
                     </tr>
