@@ -66,10 +66,13 @@ Route::prefix('user')->name('user.')->group(function () {
 
 
         //manageComplaint
-        Route::get('/createComplaint', [complaintController::class, 'showComplaintForm'])->name('createComplaint');
+        Route::get('/viewComplaint', [complaintController::class, 'viewComplaint'])->name('viewComplaint');
+        Route::get('/addComplaint', [complaintController::class, 'addComplaint'])->name('addComplaint');
         Route::post('/createComplaint', [complaintController::class, 'createComplaint'])->name('submitCreatedComplaint');
-        //Route::get('/applyForReject', [complaintController::class, 'rejectApplication'])->name('rejectApplication');
-        Route::put('/update-complaint/{id}', [complaintController::class, 'updateComplaint'])->name('updateComplaint');
+        Route::get('/edit-complaint/{id}', [ComplaintController::class, 'editComplaint'])->name('editComplaint');
+        Route::put('/update-complaint/{id}', [ComplaintController::class, 'updateComplaint'])->name('updateComplaint');
+        Route::delete('/delete-complaint/{id}', [ComplaintController::class, 'deleteComplaint'])->name('deleteComplaint');
+
     });
 });
 
@@ -82,6 +85,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [HomeController::class, 'indexAdmin'])->name('home');
         Route::get('/register-staff', [UserController::class, 'registerStaff'])->name('register-staff');
         Route::post('/store-staff', [UserController::class, 'storeStaff'])->name('store-staff');
+
+        //manageComplaint
+        Route::get('/viewUpdateAllComplaint', [complaintController::class, 'viewUpdateAllComplaint'])->name('viewUpdateAllComplaint');
     });
 });
 
@@ -94,6 +100,11 @@ Route::prefix('fk-technical')->name('technical.')->group(function () {
         Route::get('/', [HomeController::class, 'indexFKTechnical'])->name('home');
         Route::get('/register-staff', [UserController::class, 'registerStaff'])->name('register-staff');
         Route::post('/store-staff', [UserController::class, 'storeStaff'])->name('store-staff');
+
+        //manageComplaint
+        Route::get('/viewAllComplaint', [complaintController::class, 'viewAllComplaint'])->name('viewAllComplaint');
+        Route::get('/edit-complaint/{id}', [ComplaintController::class, 'fkeditComplaint'])->name('editComplaint');
+        Route::put('/update-complaint/{id}', [ComplaintController::class, 'fkupdateComplaint'])->name('updateComplaint');
     });
 });
 

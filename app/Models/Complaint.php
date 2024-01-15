@@ -11,17 +11,26 @@ class Complaint extends Model
 
     protected $table = 'complaints';
 
-    protected $primaryKey = 'complaint_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
-        'kiosk_id',
-        'complaint_type',
-        'complaint_description',
+      'user_id',
+      'date_of_filling_form',
+      'business_name',
+      'complaint_category',
+      'complaint_information',
+      'complaint_justification',
+      'status',
+      'work_order',
     ];
 
 
     public function kiosk()
     {
       //  return $this->belongsTo(Kiosk::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

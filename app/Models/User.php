@@ -62,4 +62,9 @@ class User extends Authenticatable implements MustVerifyEmail
 			get: fn ($value) =>  ["user", "pupuk-admin", "admin", "fk-technical", "fk-bursary"][$value],
 		);
 	}
+
+	public function complaints()
+    {
+        return $this->hasMany(Complaint::class);
+    }
 }

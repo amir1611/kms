@@ -70,7 +70,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('user.createComplaint') }}">
+                <a class="nav-link" href="{{ route('user.viewComplaint') }}">
                     <i class="bi bi-shop-window"></i>
                     <span>{{ __('Manage Complaint') }}</span>
                 </a>
